@@ -145,8 +145,70 @@ const getRoomList = async (req, res, next) => {
   res.status(200).send(roomList)
 }
 
+const addUnavailableTimes = async (req, res, next) => {
+  let room
+
+  const {
+    id
+  } = req.params
+
+  const {
+    unavailability
+  } = req.body
+
+  try {
+    room = await RoomModel.findById(id)
+  } catch (error) {
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  room.unavailability = unavailability
+
+  try {
+    await room.save()
+  } catch (error) {
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send({
+    message: 'Room updated successfully!'
+  })
+}
+
+// const removeUnavailableTimes = async (req, res, next) => {
+//   let room
+//
+//   const {
+//     id
+//   } = req.params
+//
+//   const {
+//     unavailabilityId
+//   } = req.body
+//
+//   try {
+//     room = await RoomModel.findById(id)
+//   } catch (error) {
+//     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+//   }
+//
+//   room.unavailability = unavailability
+//
+//   try {
+//     await room.save()
+//   } catch (error) {
+//     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+//   }
+//
+//   res.status(200).send({
+//     message: 'Room updated successfully!'
+//   })
+// }
+
 exports.addRoom = addRoom
 exports.updateRoom = updateRoom
 exports.deleteRoom = deleteRoom
 exports.getRoom = getRoom
 exports.getRoomList = getRoomList
+exports.addUnavailableTimes = addUnavailableTimes
+// exports.removeUnavailableTimes = removeUnavailableTimes
