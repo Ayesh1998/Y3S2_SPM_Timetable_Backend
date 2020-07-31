@@ -1,5 +1,3 @@
-# SLIIT Y3S1 AF Project Backend Rest API with Express
+# SLIIT_Y3S2_SPM_Project_Backend
 
-## Backend of the React project
-
-### Online Shopping Cart System for a Fashion Store 
+## Timetable_Management_System 
