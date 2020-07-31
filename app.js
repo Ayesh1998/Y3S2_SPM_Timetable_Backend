@@ -10,6 +10,7 @@ const RoomsRoutes = require('./routes/rooms.routes')
 const StudentsStatisticsRoutes = require('./routes/students-statistics.routes')
 const SubjectsStatisticsRoutes = require('./routes/subjects-statistics.routes')
 const LecturersStatisticsRoutes = require('./routes/lecturers-statistics.routes')
+const AddRoomsRoutes = require('./routes/add-rooms.routes')
 
 require('dotenv').config()
 
@@ -30,6 +31,7 @@ app.use('/rooms', RoomsRoutes)
 app.use('/studentsStatistics', StudentsStatisticsRoutes)
 app.use('/subjectsStatistics', SubjectsStatisticsRoutes)
 app.use('/lecturersStatistics', LecturersStatisticsRoutes)
+app.use('/addRooms', AddRoomsRoutes)
 
 app.use(() => {
   throw new HttpError('Could not find this route.', 404)
