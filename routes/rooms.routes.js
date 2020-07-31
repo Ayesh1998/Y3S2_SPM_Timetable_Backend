@@ -9,4 +9,4 @@ router.delete('/rooms/:id', RoomController.deleteRoom)
 router.get('/rooms/:id', RoomController.getRoom)
 router.get('/rooms', RoomController.getRoomList)
 
-module.exports = router;
+module.exports = router

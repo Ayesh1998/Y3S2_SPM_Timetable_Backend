@@ -1,4 +1,4 @@
-const HttpError = require('../models/http-errors')
+const HttpErrorsModel = require('../models/http-errors')
 const RoomModel = require('../models/rooms.model')
 
 const addRoom = async (req, res, next) => {
@@ -16,7 +16,7 @@ const addRoom = async (req, res, next) => {
       roomName: roomName
     })
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   if (existingRoom) {
@@ -24,7 +24,7 @@ const addRoom = async (req, res, next) => {
       exists: true,
       message: 'A room with the same name already exists.'
     })
-    return next(new HttpError('A room with the same name already exists.', 409))
+    return next(new HttpErrorsModel('A room with the same name already exists.', 409))
   }
 
   const newRoom = new RoomModel({
@@ -37,7 +37,7 @@ const addRoom = async (req, res, next) => {
   try {
     await newRoom.save()
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   res.status(201).send({
@@ -63,7 +63,7 @@ const updateRoom = async (req, res, next) => {
   try {
     room = await RoomModel.findById(id)
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   try {
@@ -71,7 +71,7 @@ const updateRoom = async (req, res, next) => {
       roomName: roomName
     })
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   if (existingRoom && roomName !== room.roomName) {
@@ -79,7 +79,7 @@ const updateRoom = async (req, res, next) => {
       exists: true,
       message: 'A room with the same name already exists.'
     })
-    return next(new HttpError('A room with the same name already exists.', 409))
+    return next(new HttpErrorsModel('A room with the same name already exists.', 409))
   }
 
   room.roomName = roomName
@@ -90,7 +90,7 @@ const updateRoom = async (req, res, next) => {
   try {
     await room.save()
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   res.status(200).send({
@@ -109,7 +109,7 @@ const deleteRoom = async (req, res, next) => {
     room = await RoomModel.findById(id)
     await room.remove()
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   res.status(200).send({
@@ -127,7 +127,7 @@ const getRoom = async (req, res, next) => {
   try {
     room = await RoomModel.findById(id)
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   res.status(200).send(room)
@@ -139,7 +139,7 @@ const getRoomList = async (req, res, next) => {
   try {
     roomList = await RoomModel.find()
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   res.status(200).send(roomList)
