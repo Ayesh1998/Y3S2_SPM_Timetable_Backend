@@ -33,7 +33,8 @@ const port = process.env.PORT || 5000
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  dbName: 'Y3S2-SPM-Timetable'
 }
 
 mongoose
