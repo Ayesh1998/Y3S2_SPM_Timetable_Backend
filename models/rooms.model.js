@@ -45,6 +45,12 @@ const RoomsSchema = new Schema({
     trim: true
   },
   unavailability: [{
+    id: {
+      type: Number,
+      required: true,
+      unique: true,
+      trim: true
+    },
     day: {
       type: String,
       enum: days,

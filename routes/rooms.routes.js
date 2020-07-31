@@ -8,5 +8,7 @@ router.put('/rooms/:id', RoomController.updateRoom)
 router.delete('/rooms/:id', RoomController.deleteRoom)
 router.get('/rooms/:id', RoomController.getRoom)
 router.get('/rooms', RoomController.getRoomList)
+router.post('/rooms/:id', RoomController.addUnavailableTimes)
+// router.get('/rooms/', RoomController.removeUnavailableTimes)
 
 module.exports = router
