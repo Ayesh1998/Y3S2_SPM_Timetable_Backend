@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const WorkingDaysHoursController = require("../controller/working-days-hours-controller");
+const WorkingDaysHoursController = require("../controllers/working-days-hours-controller");
 
 router.post("/create", WorkingDaysHoursController.createWorkingDaysAndHours);
 
