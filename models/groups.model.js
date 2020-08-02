@@ -4,37 +4,37 @@ const uniqueValidator = require('mongoose-unique-validator')
 const Schema = mongoose.Schema
 
 const GroupsSchema = new Schema({
-  Year: {
+  year: {
     type: Number,
     required: true,
     unique: false,
     trim: true
   },
-  Semester: {
+  semester: {
     type: Number,
     required: true,
     unique: false,
     trim: true
   },
-  YearAndSemester: {
+  yearAndSemester: {
     type: String,
     required: true,
     unique: false,
     trim: true
   },
-  Programme: {
+  programme: {
     type: String,
     required: true,
     unique: false,
     trim: true
   },
-  Group: {
+  group: {
     type: Number,
     required: true,
     unique: false,
     trim: true
   },
-  GroupId: {
+  groupId: {
     type: String,
     required: true,
     unique: true,

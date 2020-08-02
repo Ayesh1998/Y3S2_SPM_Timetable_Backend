@@ -6,17 +6,17 @@ const addGroup = async (req, res, next) => {
   let existingGroup
 
   const {
-    Year,
-    Semester,
-    YearAndSemester,
-    Programme,
-    Group,
-    GroupId
+    year,
+    semester,
+    yearAndSemester,
+    programme,
+    group,
+    groupId
   } = req.body
 
   try {
     existingGroup = await GroupModel.findOne({
-      GroupId: GroupId
+      groupId: groupId
     })
   } catch (error) {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
@@ -31,12 +31,12 @@ const addGroup = async (req, res, next) => {
   }
 
   const newGroup = new GroupModel({
-    Year,
-    Semester,
-    YearAndSemester,
-    Programme,
-    Group,
-    GroupId
+    year,
+    semester,
+    yearAndSemester,
+    programme,
+    group,
+    groupId
   })
 
   try {
@@ -82,19 +82,19 @@ const addSubGroup = async (req, res, next) => {
   let existingSubGroup
 
   const {
-    Year,
-    Semester,
-    YearAndSemester,
-    Programme,
-    Group,
-    GroupId,
-    SubGroup,
-    SubGroupId
+    year,
+    semester,
+    yearAndSemester,
+    programme,
+    group,
+    groupId,
+    subGroup,
+    subGroupId
   } = req.body
 
   try {
     existingSubGroup = await SubGroupModel.findOne({
-      SubGroupId: SubGroupId
+      subGroupId: subGroupId
     })
   } catch (error) {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
@@ -109,14 +109,14 @@ const addSubGroup = async (req, res, next) => {
   }
 
   const newSubGroup = new SubGroupModel({
-    Year,
-    Semester,
-    YearAndSemester,
-    Programme,
-    Group,
-    GroupId,
-    SubGroup,
-    SubGroupId
+    year,
+    semester,
+    yearAndSemester,
+    programme,
+    group,
+    groupId,
+    subGroup,
+    subGroupId
   })
 
   try {
