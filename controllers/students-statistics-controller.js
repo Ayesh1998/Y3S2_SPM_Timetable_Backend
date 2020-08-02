@@ -19,6 +19,7 @@ const addGroup = async (req, res, next) => {
       groupId: groupId
     })
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -42,6 +43,7 @@ const addGroup = async (req, res, next) => {
   try {
     await newGroup.save()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -60,6 +62,7 @@ const getGroup = async (req, res, next) => {
   try {
     group = await GroupModel.findById(id)
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -72,6 +75,7 @@ const getGroupList = async (req, res, next) => {
   try {
     groupList = await GroupModel.find()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -97,6 +101,7 @@ const addSubGroup = async (req, res, next) => {
       subGroupId: subGroupId
     })
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -122,6 +127,7 @@ const addSubGroup = async (req, res, next) => {
   try {
     await newSubGroup.save()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -140,6 +146,7 @@ const getSubGroup = async (req, res, next) => {
   try {
     subGroup = await SubGroupModel.findById(id)
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -152,6 +159,7 @@ const getSubGroupList = async (req, res, next) => {
   try {
     subGroupList = await SubGroupModel.find()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 

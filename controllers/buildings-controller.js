@@ -13,6 +13,7 @@ const addBuilding = async (req, res, next) => {
       buildingName: buildingName
     })
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -31,6 +32,7 @@ const addBuilding = async (req, res, next) => {
   try {
     await newBuilding.save()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -54,6 +56,7 @@ const updateBuilding = async (req, res, next) => {
   try {
     building = await BuildingModel.findById(id)
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -62,6 +65,7 @@ const updateBuilding = async (req, res, next) => {
       buildingName: buildingName
     })
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -78,6 +82,7 @@ const updateBuilding = async (req, res, next) => {
   try {
     await building.save()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -97,6 +102,7 @@ const deleteBuilding = async (req, res, next) => {
     building = await BuildingModel.findById(id)
     await building.remove()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -115,6 +121,7 @@ const getBuilding = async (req, res, next) => {
   try {
     building = await BuildingModel.findById(id)
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -127,6 +134,7 @@ const getBuildingList = async (req, res, next) => {
   try {
     buildingList = await BuildingModel.find()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
