@@ -145,8 +145,27 @@ const getRoomList = async (req, res, next) => {
   res.status(200).send(roomList)
 }
 
+const getRoomListByBuilding = async (req, res, next) => {
+  let roomList
+
+  const {
+    buildingName
+  } = req.body
+
+  try {
+    roomList = await RoomModel.find({
+      buildingName: buildingName
+    })
+  } catch (error) {
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send(roomList)
+}
+
 exports.addRoom = addRoom
 exports.updateRoom = updateRoom
 exports.deleteRoom = deleteRoom
 exports.getRoom = getRoom
 exports.getRoomList = getRoomList
+exports.getRoomListByBuilding = getRoomListByBuilding

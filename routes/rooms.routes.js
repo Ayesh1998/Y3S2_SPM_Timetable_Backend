@@ -8,5 +8,6 @@ router.put('/rooms/:id', RoomController.updateRoom)
 router.delete('/rooms/:id', RoomController.deleteRoom)
 router.get('/rooms/:id', RoomController.getRoom)
 router.get('/rooms', RoomController.getRoomList)
+router.get('/roomsByBuilding', RoomController.getRoomListByBuilding)
 
 module.exports = router
