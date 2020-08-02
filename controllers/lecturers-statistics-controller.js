@@ -20,6 +20,7 @@ const addLecturer = async (req, res, next) => {
       employeeId: employeeId
     })
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -45,6 +46,7 @@ const addLecturer = async (req, res, next) => {
   try {
     await newLecturer.save()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -63,6 +65,7 @@ const getLecturer = async (req, res, next) => {
   try {
     lecturer = await LecturerModel.findById(id)
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -75,12 +78,76 @@ const getLecturerList = async (req, res, next) => {
   try {
     lecturerList = await LecturerModel.find()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   res.status(200).send(lecturerList)
 }
 
+const getLecturerCountByFaculty = async (req, res, next) => {
+  let lecturerCountByFaculty
+
+  try {
+    lecturerCountByFaculty = await LecturerModel.aggregate([{
+      $group: {
+        '_id': '$faculty',
+        'count': {
+          $sum: 1
+        }
+      }
+    }])
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send(lecturerCountByFaculty)
+}
+
+const getLecturerCountByLevel = async (req, res, next) => {
+  let lecturerCountByLevel
+
+  try {
+    lecturerCountByLevel = await LecturerModel.aggregate([{
+      $group: {
+        '_id': '$level',
+        'count': {
+          $sum: 1
+        }
+      }
+    }])
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send(lecturerCountByLevel)
+}
+
+const getLecturerCountByCenter = async (req, res, next) => {
+  let lecturerCountByCenter
+
+  try {
+    lecturerCountByCenter = await LecturerModel.aggregate([{
+      $group: {
+        '_id': '$center',
+        'count': {
+          $sum: 1
+        }
+      }
+    }])
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send(lecturerCountByCenter)
+}
+
 exports.addLecturer = addLecturer
 exports.getLecturer = getLecturer
 exports.getLecturerList = getLecturerList
+exports.getLecturerCountByFaculty = getLecturerCountByFaculty
+exports.getLecturerCountByLevel = getLecturerCountByLevel
+exports.getLecturerCountByCenter = getLecturerCountByCenter
