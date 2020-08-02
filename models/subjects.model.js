@@ -4,49 +4,49 @@ const uniqueValidator = require('mongoose-unique-validator')
 const Schema = mongoose.Schema
 
 const SubjectsSchema = new Schema({
-  OfferedYear: {
+  offeredYear: {
     type: Number,
     required: true,
     unique: false,
     trim: true
   },
-  OfferedSemester: {
+  offeredSemester: {
     type: Number,
     required: true,
     unique: false,
     trim: true
   },
-  SubjectName: {
+  subjectName: {
     type: String,
     required: true,
     unique: false,
     trim: true
   },
-  SubjectCode: {
+  subjectCode: {
     type: String,
     required: true,
     unique: true,
     trim: true
   },
-  NumberOfLectureHours: {
+  numberOfLectureHours: {
     type: Number,
     required: true,
     unique: false,
     trim: true
   },
-  NumberOfTutorialHours: {
+  numberOfTutorialHours: {
     type: Number,
     required: true,
     unique: false,
     trim: true
   },
-  NumberOfLabHours: {
+  numberOfLabHours: {
     type: Number,
     required: true,
     unique: false,
     trim: true
   },
-  NumberOfEvaluationHours: {
+  numberOfEvaluationHours: {
     type: Number,
     required: true,
     unique: false,

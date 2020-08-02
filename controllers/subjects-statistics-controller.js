@@ -5,19 +5,19 @@ const addSubject = async (req, res, next) => {
   let existingSubject
 
   const {
-    OfferedYear,
-    OfferedSemester,
-    SubjectName,
-    SubjectCode,
-    NumberOfLectureHours,
-    NumberOfTutorialHours,
-    NumberOfLabHours,
-    NumberOfEvaluationHours
+    offeredYear,
+    offeredSemester,
+    subjectName,
+    subjectCode,
+    numberOfLectureHours,
+    numberOfTutorialHours,
+    numberOfLabHours,
+    numberOfEvaluationHours
   } = req.body
 
   try {
     existingSubject = await SubjectModel.findOne({
-      SubjectCode: SubjectCode
+      subjectCode: subjectCode
     })
   } catch (error) {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
@@ -32,14 +32,14 @@ const addSubject = async (req, res, next) => {
   }
 
   const newSubject = new SubjectModel({
-    OfferedYear,
-    OfferedSemester,
-    SubjectName,
-    SubjectCode,
-    NumberOfLectureHours,
-    NumberOfTutorialHours,
-    NumberOfLabHours,
-    NumberOfEvaluationHours
+    offeredYear,
+    offeredSemester,
+    subjectName,
+    subjectCode,
+    numberOfLectureHours,
+    numberOfTutorialHours,
+    numberOfLabHours,
+    numberOfEvaluationHours
   })
 
   try {

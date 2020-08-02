@@ -4,49 +4,49 @@ const uniqueValidator = require('mongoose-unique-validator')
 const Schema = mongoose.Schema
 
 const LecturersSchema = new Schema({
-  LecturerName: {
+  lecturerName: {
     type: String,
     required: true,
     unique: false,
     trim: true
   },
-  EmployeeId: {
+  employeeId: {
     type: Number,
     required: true,
     unique: true,
     trim: true
   },
-  Faculty: {
+  faculty: {
     type: String,
     required: true,
     unique: false,
     trim: true
   },
-  Department: {
+  department: {
     type: String,
     required: true,
     unique: false,
     trim: true
   },
-  Center: {
+  center: {
     type: String,
     required: true,
     unique: false,
     trim: true
   },
-  Building: {
+  building: {
     type: String,
     required: true,
     unique: false,
     trim: true
   },
-  Level: {
+  level: {
     type: Number,
     required: true,
     unique: false,
     trim: true
   },
-  Rank: {
+  rank: {
     type: String,
     required: true,
     unique: true,

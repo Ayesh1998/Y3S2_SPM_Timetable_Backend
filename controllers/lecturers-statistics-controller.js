@@ -5,19 +5,19 @@ const addLecturer = async (req, res, next) => {
   let existingLecturer
 
   const {
-    LecturerName,
-    EmployeeId,
-    Faculty,
-    Department,
-    Center,
-    Building,
-    Level,
-    Rank
+    lecturerName,
+    employeeId,
+    faculty,
+    department,
+    center,
+    building,
+    level,
+    rank
   } = req.body
 
   try {
     existingLecturer = await LecturerModel.findOne({
-      EmployeeId: EmployeeId
+      employeeId: employeeId
     })
   } catch (error) {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
@@ -32,14 +32,14 @@ const addLecturer = async (req, res, next) => {
   }
 
   const newLecturer = new LecturerModel({
-    LecturerName,
-    EmployeeId,
-    Faculty,
-    Department,
-    Center,
-    Building,
-    Level,
-    Rank
+    lecturerName,
+    employeeId,
+    faculty,
+    department,
+    center,
+    building,
+    level,
+    rank
   })
 
   try {
