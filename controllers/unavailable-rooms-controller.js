@@ -16,6 +16,7 @@ const addUnavailableTimes = async (req, res, next) => {
   try {
     room = await RoomModel.findById(id)
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -25,6 +26,7 @@ const addUnavailableTimes = async (req, res, next) => {
   try {
     await room.save()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -48,6 +50,7 @@ const removeUnavailableTimes = async (req, res, next) => {
   try {
     room = await RoomModel.findById(id)
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -60,6 +63,7 @@ const removeUnavailableTimes = async (req, res, next) => {
       try {
         await room.save()
       } catch (error) {
+        console.log(error)
         return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
       }
       res.status(200).send({

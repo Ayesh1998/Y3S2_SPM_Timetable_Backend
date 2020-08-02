@@ -20,6 +20,7 @@ const addSubject = async (req, res, next) => {
       subjectCode: subjectCode
     })
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -45,6 +46,7 @@ const addSubject = async (req, res, next) => {
   try {
     await newSubject.save()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -63,6 +65,7 @@ const getSubject = async (req, res, next) => {
   try {
     subject = await SubjectModel.findById(id)
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
@@ -75,6 +78,7 @@ const getSubjectList = async (req, res, next) => {
   try {
     subjectList = await SubjectModel.find()
   } catch (error) {
+    console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
