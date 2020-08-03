@@ -207,9 +207,13 @@ const getGroupsCountByAcademicYear = async (req, res, next) => {
   }
 
   for (let i = 0; i < groupsCountByAcademicYear.length; i++) {
+    let subGroupsCount = 0
+    if (subGroupsCountByAcademicYear[i] !== undefined) {
+      subGroupsCount = subGroupsCountByAcademicYear[i].count
+    }
     groupsCountByAcademicYear[i] = {
       ...groupsCountByAcademicYear[i],
-      subGroupsCount: subGroupsCountByAcademicYear[i].count
+      subGroupsCount: subGroupsCount
     }
   }
 
@@ -267,11 +271,15 @@ const getGroupsCountByAcademicYearAndSemester = async (req, res, next) => {
   for (let i = 0; i < groupsCountByAcademicYearAndSemester.length; i++) {
     const academicYear = groupsCountByAcademicYearAndSemester[i]._id.year
     const academicSemester = groupsCountByAcademicYearAndSemester[i]._id.semester
+    let subGroupsCount = 0
+    if (subGroupsCountByAcademicYearAndSemester[i] !== undefined) {
+      subGroupsCount = subGroupsCountByAcademicYearAndSemester[i].count
+    }
     yearAndSemester = `Y${academicYear}.S${academicSemester}`
     groupsCountByAcademicYearAndSemester[i] = {
       ...groupsCountByAcademicYearAndSemester[i],
       yearAndSemester: yearAndSemester,
-      subGroupsCount: subGroupsCountByAcademicYearAndSemester[i].count
+      subGroupsCount: subGroupsCount
     }
   }
 
@@ -332,11 +340,15 @@ const getGroupsCountByAcademicYearSemesterAndProgramme = async (req, res, next) 
     const academicYear = groupsCountByAcademicYearSemesterAndProgramme[i]._id.year
     const academicSemester = groupsCountByAcademicYearSemesterAndProgramme[i]._id.semester
     const programme = groupsCountByAcademicYearSemesterAndProgramme[i]._id.programme
+    let subGroupsCount = 0
+    if (subGroupsCountByAcademicYearSemesterAndProgramme[i] !== undefined) {
+      subGroupsCount = subGroupsCountByAcademicYearSemesterAndProgramme[i].count
+    }
     yearSemesterAndProgramme = `Y${academicYear}.S${academicSemester}.${programme}`
     groupsCountByAcademicYearSemesterAndProgramme[i] = {
       ...groupsCountByAcademicYearSemesterAndProgramme[i],
       yearSemesterAndProgramme: yearSemesterAndProgramme,
-      subGroupsCount: subGroupsCountByAcademicYearSemesterAndProgramme[i].count
+      subGroupsCount: subGroupsCount
     }
   }
 
