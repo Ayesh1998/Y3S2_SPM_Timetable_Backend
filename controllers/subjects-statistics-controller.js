@@ -106,8 +106,10 @@ const getSubjectsCountByOfferedYear = async (req, res, next) => {
   try {
     subjectsCountByOfferedYear = await SubjectModel.aggregate([{
       $group: {
-        '_id': '$offeredYear',
-        'count': {
+        '_id': {
+          'offeredYear': '$offeredYear'
+        },
+        'subjectsCount': {
           $sum: 1
         }
       }
@@ -134,7 +136,7 @@ const getSubjectsCountByOfferedYearAndSemester = async (req, res, next) => {
           'offeredYear': '$offeredYear',
           'offeredSemester': '$offeredSemester'
         },
-        'count': {
+        'subjectsCount': {
           $sum: 1
         }
       }
