@@ -85,6 +85,67 @@ const getSubjectList = async (req, res, next) => {
   res.status(200).send(subjectList)
 }
 
+const getTotalSubjectsCount = async (req, res, next) => {
+  let totalSubjectsCount
+
+  try {
+    totalSubjectsCount = await SubjectModel.countDocuments({})
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).json({
+    totalSubjectsCount: totalSubjectsCount
+  })
+}
+
+const getSubjectsCountByOfferedYear = async (req, res, next) => {
+  let subjectsCountByOfferedYear
+
+  try {
+    subjectsCountByOfferedYear = await SubjectModel.aggregate([{
+      $group: {
+        '_id': '$offeredYear',
+        'count': {
+          $sum: 1
+        }
+      }
+    }])
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send(subjectsCountByOfferedYear)
+}
+
+const getSubjectsCountByOfferedYearAndSemester = async (req, res, next) => {
+  let subjectsCountByOfferedYearAndSemester
+
+  try {
+    subjectsCountByOfferedYearAndSemester = await SubjectModel.aggregate([{
+      $group: {
+        '_id': {
+          'offeredYear': '$offeredYear',
+          'offeredSemester': '$offeredSemester'
+        },
+        'count': {
+          $sum: 1
+        }
+      }
+    }])
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send(subjectsCountByOfferedYearAndSemester)
+}
+
 exports.addSubject = addSubject
 exports.getSubject = getSubject
 exports.getSubjectList = getSubjectList
+exports.getTotalSubjectsCount = getTotalSubjectsCount
+exports.getSubjectsCountByOfferedYear = getSubjectsCountByOfferedYear
+exports.getSubjectsCountByOfferedYearAndSemester = getSubjectsCountByOfferedYearAndSemester
