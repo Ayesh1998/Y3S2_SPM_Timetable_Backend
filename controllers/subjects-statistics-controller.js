@@ -140,6 +140,13 @@ const getSubjectsCountByOfferedYearAndSemester = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
+  let yearAndSemester
+
+  for (let i = 0; i < subjectsCountByOfferedYearAndSemester.length; i++) {
+    yearAndSemester = `Y${subjectsCountByOfferedYearAndSemester[i]._id.offeredYear}S${subjectsCountByOfferedYearAndSemester[i]._id.offeredSemester}`
+    subjectsCountByOfferedYearAndSemester[i] = {...subjectsCountByOfferedYearAndSemester[i], yearAndSemester: yearAndSemester}
+  }
+
   res.status(200).send(subjectsCountByOfferedYearAndSemester)
 }
 
