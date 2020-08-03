@@ -6,9 +6,9 @@ const addGroup = async (req, res, next) => {
   let existingGroup
 
   const {
-    year,
-    semester,
-    yearAndSemester,
+    academicYear,
+    academicSemester,
+    academicYearAndSemester,
     programme,
     group,
     groupId
@@ -32,9 +32,9 @@ const addGroup = async (req, res, next) => {
   }
 
   const newGroup = new GroupModel({
-    year,
-    semester,
-    yearAndSemester,
+    academicYear,
+    academicSemester,
+    academicYearAndSemester,
     programme,
     group,
     groupId
@@ -86,9 +86,9 @@ const addSubGroup = async (req, res, next) => {
   let existingSubGroup
 
   const {
-    year,
-    semester,
-    yearAndSemester,
+    academicYear,
+    academicSemester,
+    academicYearAndSemester,
     programme,
     group,
     groupId,
@@ -114,9 +114,9 @@ const addSubGroup = async (req, res, next) => {
   }
 
   const newSubGroup = new SubGroupModel({
-    year,
-    semester,
-    yearAndSemester,
+    academicYear,
+    academicSemester,
+    academicYearAndSemester,
     programme,
     group,
     groupId,
@@ -173,8 +173,10 @@ const getGroupsCountByAcademicYear = async (req, res, next) => {
   try {
     groupsCountByAcademicYear = await GroupModel.aggregate([{
       $group: {
-        '_id': '$year',
-        'count': {
+        '_id': {
+          'academicYear': '$academicYear'
+        },
+        'groupsCount': {
           $sum: 1
         }
       }
@@ -191,8 +193,10 @@ const getGroupsCountByAcademicYear = async (req, res, next) => {
   try {
     subGroupsCountByAcademicYear = await SubGroupModel.aggregate([{
       $group: {
-        '_id': '$year',
-        'count': {
+        '_id': {
+          'academicYear': '$academicYear'
+        },
+        'subGroupsCount': {
           $sum: 1
         }
       }
@@ -207,10 +211,12 @@ const getGroupsCountByAcademicYear = async (req, res, next) => {
   }
 
   for (let i = 0; i < groupsCountByAcademicYear.length; i++) {
+    const academicYearGroup = groupsCountByAcademicYear[i]._id.academicYear
     let subGroupsCount = 0
     for (let j = 0; j < subGroupsCountByAcademicYear.length; j++) {
-      if (groupsCountByAcademicYear[i]._id === subGroupsCountByAcademicYear[j]._id) {
-        subGroupsCount = subGroupsCountByAcademicYear[j].count
+      const academicYearSubGroup = subGroupsCountByAcademicYear[j]._id.academicYear
+      if (academicYearGroup === academicYearSubGroup) {
+        subGroupsCount = subGroupsCountByAcademicYear[j].subGroupsCount
       }
     }
     groupsCountByAcademicYear[i] = {
@@ -230,10 +236,10 @@ const getGroupsCountByAcademicYearAndSemester = async (req, res, next) => {
     groupsCountByAcademicYearAndSemester = await GroupModel.aggregate([{
       $group: {
         '_id': {
-          'year': '$year',
-          'semester': '$semester'
+          'academicYear': '$academicYear',
+          'academicSemester': '$academicSemester'
         },
-        'count': {
+        'groupsCount': {
           $sum: 1
         }
       }
@@ -251,10 +257,10 @@ const getGroupsCountByAcademicYearAndSemester = async (req, res, next) => {
     subGroupsCountByAcademicYearAndSemester = await SubGroupModel.aggregate([{
       $group: {
         '_id': {
-          'year': '$year',
-          'semester': '$semester'
+          'academicYear': '$academicYear',
+          'academicSemester': '$academicSemester'
         },
-        'count': {
+        'subGroupsCount': {
           $sum: 1
         }
       }
@@ -268,23 +274,23 @@ const getGroupsCountByAcademicYearAndSemester = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
-  let yearAndSemester
+  let academicYearAndSemester
 
   for (let i = 0; i < groupsCountByAcademicYearAndSemester.length; i++) {
-    const academicYearGroup = groupsCountByAcademicYearAndSemester[i]._id.year
-    const academicSemesterGroup = groupsCountByAcademicYearAndSemester[i]._id.semester
+    const academicYearGroup = groupsCountByAcademicYearAndSemester[i]._id.academicYear
+    const academicSemesterGroup = groupsCountByAcademicYearAndSemester[i]._id.academicSemester
     let subGroupsCount = 0
     for (let j = 0; j < subGroupsCountByAcademicYearAndSemester.length; j++) {
-      const academicYearSubGroup = subGroupsCountByAcademicYearAndSemester[j]._id.year
-      const academicSemesterSubGroup = subGroupsCountByAcademicYearAndSemester[j]._id.semester
+      const academicYearSubGroup = subGroupsCountByAcademicYearAndSemester[j]._id.academicYear
+      const academicSemesterSubGroup = subGroupsCountByAcademicYearAndSemester[j]._id.academicSemester
       if (academicYearGroup === academicYearSubGroup && academicSemesterGroup === academicSemesterSubGroup) {
-        subGroupsCount = subGroupsCountByAcademicYearAndSemester[j].count
+        subGroupsCount = subGroupsCountByAcademicYearAndSemester[j].subGroupsCount
       }
     }
-    yearAndSemester = `Y${academicYearGroup}.S${academicSemesterGroup}`
+    academicYearAndSemester = `Y${academicYearGroup}.S${academicSemesterGroup}`
     groupsCountByAcademicYearAndSemester[i] = {
       ...groupsCountByAcademicYearAndSemester[i],
-      yearAndSemester: yearAndSemester,
+      academicYearAndSemester: academicYearAndSemester,
       subGroupsCount: subGroupsCount
     }
   }
@@ -300,11 +306,11 @@ const getGroupsCountByAcademicYearSemesterAndProgramme = async (req, res, next) 
     groupsCountByAcademicYearSemesterAndProgramme = await GroupModel.aggregate([{
       $group: {
         '_id': {
-          'year': '$year',
-          'semester': '$semester',
+          'academicYear': '$academicYear',
+          'academicSemester': '$academicSemester',
           'programme': '$programme'
         },
-        'count': {
+        'groupsCount': {
           $sum: 1
         }
       }
@@ -322,11 +328,11 @@ const getGroupsCountByAcademicYearSemesterAndProgramme = async (req, res, next) 
     subGroupsCountByAcademicYearSemesterAndProgramme = await SubGroupModel.aggregate([{
       $group: {
         '_id': {
-          'year': '$year',
-          'semester': '$semester',
+          'academicYear': '$academicYear',
+          'academicSemester': '$academicSemester',
           'programme': '$programme'
         },
-        'count': {
+        'subGroupsCount': {
           $sum: 1
         }
       }
@@ -340,25 +346,25 @@ const getGroupsCountByAcademicYearSemesterAndProgramme = async (req, res, next) 
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
-  let yearSemesterAndProgramme
+  let academicYearSemesterAndProgramme
 
   for (let i = 0; i < groupsCountByAcademicYearSemesterAndProgramme.length; i++) {
-    const academicYearGroup = groupsCountByAcademicYearSemesterAndProgramme[i]._id.year
-    const academicSemesterGroup = groupsCountByAcademicYearSemesterAndProgramme[i]._id.semester
+    const academicYearGroup = groupsCountByAcademicYearSemesterAndProgramme[i]._id.academicYear
+    const academicSemesterGroup = groupsCountByAcademicYearSemesterAndProgramme[i]._id.academicSemester
     const programmeGroup = groupsCountByAcademicYearSemesterAndProgramme[i]._id.programme
     let subGroupsCount = 0
     for (let j = 0; j < subGroupsCountByAcademicYearSemesterAndProgramme.length; j++) {
-      const academicYearSubGroup = subGroupsCountByAcademicYearSemesterAndProgramme[j]._id.year
-      const academicSemesterSubGroup = subGroupsCountByAcademicYearSemesterAndProgramme[j]._id.semester
+      const academicYearSubGroup = subGroupsCountByAcademicYearSemesterAndProgramme[j]._id.academicYear
+      const academicSemesterSubGroup = subGroupsCountByAcademicYearSemesterAndProgramme[j]._id.academicSemester
       const programmeSubGroup = subGroupsCountByAcademicYearSemesterAndProgramme[j]._id.programme
       if (academicYearGroup === academicYearSubGroup && academicSemesterGroup === academicSemesterSubGroup && programmeGroup === programmeSubGroup) {
-        subGroupsCount = subGroupsCountByAcademicYearSemesterAndProgramme[j].count
+        subGroupsCount = subGroupsCountByAcademicYearSemesterAndProgramme[j].subGroupsCount
       }
     }
-    yearSemesterAndProgramme = `Y${academicYearGroup}.S${academicSemesterGroup}.${programmeGroup}`
+    academicYearSemesterAndProgramme = `Y${academicYearGroup}.S${academicSemesterGroup}.${programmeGroup}`
     groupsCountByAcademicYearSemesterAndProgramme[i] = {
       ...groupsCountByAcademicYearSemesterAndProgramme[i],
-      yearSemesterAndProgramme: yearSemesterAndProgramme,
+      academicYearSemesterAndProgramme: academicYearSemesterAndProgramme,
       subGroupsCount: subGroupsCount
     }
   }

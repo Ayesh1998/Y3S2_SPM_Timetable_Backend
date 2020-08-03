@@ -4,19 +4,19 @@ const uniqueValidator = require('mongoose-unique-validator')
 const Schema = mongoose.Schema
 
 const SubGroupsSchema = new Schema({
-  year: {
+  academicYear: {
     type: Number,
     required: true,
     unique: false,
     trim: true
   },
-  semester: {
+  academicSemester: {
     type: Number,
     required: true,
     unique: false,
     trim: true
   },
-  yearAndSemester: {
+  academicYearAndSemester: {
     type: String,
     required: true,
     unique: false,
