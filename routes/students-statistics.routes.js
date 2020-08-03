@@ -9,5 +9,8 @@ router.get('/studentsStatisticsGroups', StudentsStatisticsController.getGroupLis
 router.post('/studentsStatisticsSubGroups', StudentsStatisticsController.addSubGroup)
 router.get('/studentsStatisticsSubGroups/:id', StudentsStatisticsController.getSubGroup)
 router.get('/studentsStatisticsSubGroups', StudentsStatisticsController.getSubGroupList)
+router.get('/groupsCountByAcademicYear', StudentsStatisticsController.getGroupsCountByAcademicYear)
+router.get('/groupsCountByAcademicYearAndSemester', StudentsStatisticsController.getGroupsCountByAcademicYearAndSemester)
+router.get('/groupsCountByAcademicYearSemesterAndProgramme', StudentsStatisticsController.getGroupsCountByAcademicYearSemesterAndProgramme)
 
 module.exports = router

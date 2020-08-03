@@ -105,6 +105,10 @@ const getSubjectsCountByOfferedYear = async (req, res, next) => {
 
   try {
     subjectsCountByOfferedYear = await SubjectModel.aggregate([{
+      $sort: {
+        'offeredYear': 1
+      }
+    }, {
       $group: {
         '_id': '$offeredYear',
         'count': {
@@ -125,6 +129,11 @@ const getSubjectsCountByOfferedYearAndSemester = async (req, res, next) => {
 
   try {
     subjectsCountByOfferedYearAndSemester = await SubjectModel.aggregate([{
+      $sort: {
+        'offeredYear': 1,
+        'offeredSemester': 1
+      }
+    }, {
       $group: {
         '_id': {
           'offeredYear': '$offeredYear',
@@ -143,8 +152,13 @@ const getSubjectsCountByOfferedYearAndSemester = async (req, res, next) => {
   let yearAndSemester
 
   for (let i = 0; i < subjectsCountByOfferedYearAndSemester.length; i++) {
-    yearAndSemester = `Y${subjectsCountByOfferedYearAndSemester[i]._id.offeredYear}S${subjectsCountByOfferedYearAndSemester[i]._id.offeredSemester}`
-    subjectsCountByOfferedYearAndSemester[i] = {...subjectsCountByOfferedYearAndSemester[i], yearAndSemester: yearAndSemester}
+    const offeredYear = subjectsCountByOfferedYearAndSemester[i]._id.offeredYear
+    const offeredSemester = subjectsCountByOfferedYearAndSemester[i]._id.offeredSemester
+    yearAndSemester = `Y${offeredYear}.S${offeredSemester}`
+    subjectsCountByOfferedYearAndSemester[i] = {
+      ...subjectsCountByOfferedYearAndSemester[i],
+      yearAndSemester: yearAndSemester
+    }
   }
 
   res.status(200).send(subjectsCountByOfferedYearAndSemester)

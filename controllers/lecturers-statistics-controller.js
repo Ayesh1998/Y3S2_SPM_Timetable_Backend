@@ -90,6 +90,10 @@ const getLecturerCountByFaculty = async (req, res, next) => {
 
   try {
     lecturerCountByFaculty = await LecturerModel.aggregate([{
+      $sort: {
+        'faculty': 1
+      }
+    }, {
       $group: {
         '_id': '$faculty',
         'count': {
@@ -110,6 +114,10 @@ const getLecturerCountByLevel = async (req, res, next) => {
 
   try {
     lecturerCountByLevel = await LecturerModel.aggregate([{
+      $sort: {
+        'level': 1
+      }
+    }, {
       $group: {
         '_id': '$level',
         'count': {
@@ -130,6 +138,10 @@ const getLecturerCountByCenter = async (req, res, next) => {
 
   try {
     lecturerCountByCenter = await LecturerModel.aggregate([{
+      $sort: {
+        'center': 1
+      }
+    }, {
       $group: {
         '_id': '$center',
         'count': {
