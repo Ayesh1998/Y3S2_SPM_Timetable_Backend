@@ -172,15 +172,15 @@ const getGroupsCountByAcademicYear = async (req, res, next) => {
 
   try {
     groupsCountByAcademicYear = await GroupModel.aggregate([{
-      $sort: {
-        'groupId': 1
-      }
-    }, {
       $group: {
         '_id': '$year',
         'count': {
           $sum: 1
         }
+      }
+    }, {
+      $sort: {
+        '_id': 1
       }
     }])
   } catch (error) {
@@ -190,15 +190,15 @@ const getGroupsCountByAcademicYear = async (req, res, next) => {
 
   try {
     subGroupsCountByAcademicYear = await SubGroupModel.aggregate([{
-      $sort: {
-        'groupId': 1
-      }
-    }, {
       $group: {
         '_id': '$year',
         'count': {
           $sum: 1
         }
+      }
+    }, {
+      $sort: {
+        '_id': 1
       }
     }])
   } catch (error) {
@@ -222,10 +222,6 @@ const getGroupsCountByAcademicYearAndSemester = async (req, res, next) => {
 
   try {
     groupsCountByAcademicYearAndSemester = await GroupModel.aggregate([{
-      $sort: {
-        'groupId': 1
-      }
-    }, {
       $group: {
         '_id': {
           'year': '$year',
@@ -234,6 +230,10 @@ const getGroupsCountByAcademicYearAndSemester = async (req, res, next) => {
         'count': {
           $sum: 1
         }
+      }
+    }, {
+      $sort: {
+        '_id': 1
       }
     }])
   } catch (error) {
@@ -243,10 +243,6 @@ const getGroupsCountByAcademicYearAndSemester = async (req, res, next) => {
 
   try {
     subGroupsCountByAcademicYearAndSemester = await SubGroupModel.aggregate([{
-      $sort: {
-        'groupId': 1
-      }
-    }, {
       $group: {
         '_id': {
           'year': '$year',
@@ -255,6 +251,10 @@ const getGroupsCountByAcademicYearAndSemester = async (req, res, next) => {
         'count': {
           $sum: 1
         }
+      }
+    }, {
+      $sort: {
+        '_id': 1
       }
     }])
   } catch (error) {
@@ -284,10 +284,6 @@ const getGroupsCountByAcademicYearSemesterAndProgramme = async (req, res, next) 
 
   try {
     groupsCountByAcademicYearSemesterAndProgramme = await GroupModel.aggregate([{
-      $sort: {
-        'groupId': 1
-      }
-    }, {
       $group: {
         '_id': {
           'year': '$year',
@@ -297,6 +293,10 @@ const getGroupsCountByAcademicYearSemesterAndProgramme = async (req, res, next) 
         'count': {
           $sum: 1
         }
+      }
+    }, {
+      $sort: {
+        '_id': 1
       }
     }])
   } catch (error) {
@@ -306,10 +306,6 @@ const getGroupsCountByAcademicYearSemesterAndProgramme = async (req, res, next) 
 
   try {
     subGroupsCountByAcademicYearSemesterAndProgramme = await SubGroupModel.aggregate([{
-      $sort: {
-        'groupId': 1
-      }
-    }, {
       $group: {
         '_id': {
           'year': '$year',
@@ -319,6 +315,10 @@ const getGroupsCountByAcademicYearSemesterAndProgramme = async (req, res, next) 
         'count': {
           $sum: 1
         }
+      }
+    }, {
+      $sort: {
+        '_id': 1
       }
     }])
   } catch (error) {
