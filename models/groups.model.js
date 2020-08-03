@@ -29,7 +29,7 @@ const GroupsSchema = new Schema({
     trim: true
   },
   group: {
-    type: Number,
+    type: String,
     required: true,
     unique: false,
     trim: true
