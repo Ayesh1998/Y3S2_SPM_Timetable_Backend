@@ -166,9 +166,189 @@ const getSubGroupList = async (req, res, next) => {
   res.status(200).send(subGroupList)
 }
 
+const getGroupsCountByAcademicYear = async (req, res, next) => {
+  let groupsCountByAcademicYear
+  let subGroupsCountByAcademicYear
+
+  try {
+    groupsCountByAcademicYear = await GroupModel.aggregate([{
+      $sort: {
+        'groupId': 1
+      }
+    }, {
+      $group: {
+        '_id': '$year',
+        'count': {
+          $sum: 1
+        }
+      }
+    }])
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  try {
+    subGroupsCountByAcademicYear = await SubGroupModel.aggregate([{
+      $sort: {
+        'groupId': 1
+      }
+    }, {
+      $group: {
+        '_id': '$year',
+        'count': {
+          $sum: 1
+        }
+      }
+    }])
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  for (let i = 0; i < groupsCountByAcademicYear.length; i++) {
+    groupsCountByAcademicYear[i] = {
+      ...groupsCountByAcademicYear[i],
+      subGroupsCount: subGroupsCountByAcademicYear[i].count
+    }
+  }
+
+  res.status(200).send(groupsCountByAcademicYear)
+}
+
+const getGroupsCountByAcademicYearAndSemester = async (req, res, next) => {
+  let groupsCountByAcademicYearAndSemester
+  let subGroupsCountByAcademicYearAndSemester
+
+  try {
+    groupsCountByAcademicYearAndSemester = await GroupModel.aggregate([{
+      $sort: {
+        'groupId': 1
+      }
+    }, {
+      $group: {
+        '_id': {
+          'year': '$year',
+          'semester': '$semester'
+        },
+        'count': {
+          $sum: 1
+        }
+      }
+    }])
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  try {
+    subGroupsCountByAcademicYearAndSemester = await SubGroupModel.aggregate([{
+      $sort: {
+        'groupId': 1
+      }
+    }, {
+      $group: {
+        '_id': {
+          'year': '$year',
+          'semester': '$semester'
+        },
+        'count': {
+          $sum: 1
+        }
+      }
+    }])
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  let yearAndSemester
+
+  for (let i = 0; i < groupsCountByAcademicYearAndSemester.length; i++) {
+    const academicYear = groupsCountByAcademicYearAndSemester[i]._id.year
+    const academicSemester = groupsCountByAcademicYearAndSemester[i]._id.semester
+    yearAndSemester = `Y${academicYear}.S${academicSemester}`
+    groupsCountByAcademicYearAndSemester[i] = {
+      ...groupsCountByAcademicYearAndSemester[i],
+      yearAndSemester: yearAndSemester,
+      subGroupsCount: subGroupsCountByAcademicYearAndSemester[i].count
+    }
+  }
+
+  res.status(200).send(groupsCountByAcademicYearAndSemester)
+}
+
+const getGroupsCountByAcademicYearSemesterAndProgramme = async (req, res, next) => {
+  let groupsCountByAcademicYearSemesterAndProgramme
+  let subGroupsCountByAcademicYearSemesterAndProgramme
+
+  try {
+    groupsCountByAcademicYearSemesterAndProgramme = await GroupModel.aggregate([{
+      $sort: {
+        'groupId': 1
+      }
+    }, {
+      $group: {
+        '_id': {
+          'year': '$year',
+          'semester': '$semester',
+          'programme': '$programme'
+        },
+        'count': {
+          $sum: 1
+        }
+      }
+    }])
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  try {
+    subGroupsCountByAcademicYearSemesterAndProgramme = await SubGroupModel.aggregate([{
+      $sort: {
+        'groupId': 1
+      }
+    }, {
+      $group: {
+        '_id': {
+          'year': '$year',
+          'semester': '$semester',
+          'programme': '$programme'
+        },
+        'count': {
+          $sum: 1
+        }
+      }
+    }])
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  let yearSemesterAndProgramme
+
+  for (let i = 0; i < groupsCountByAcademicYearSemesterAndProgramme.length; i++) {
+    const academicYear = groupsCountByAcademicYearSemesterAndProgramme[i]._id.year
+    const academicSemester = groupsCountByAcademicYearSemesterAndProgramme[i]._id.semester
+    const programme = groupsCountByAcademicYearSemesterAndProgramme[i]._id.programme
+    yearSemesterAndProgramme = `Y${academicYear}.S${academicSemester}.${programme}`
+    groupsCountByAcademicYearSemesterAndProgramme[i] = {
+      ...groupsCountByAcademicYearSemesterAndProgramme[i],
+      yearSemesterAndProgramme: yearSemesterAndProgramme,
+      subGroupsCount: subGroupsCountByAcademicYearSemesterAndProgramme[i].count
+    }
+  }
+
+  res.status(200).send(groupsCountByAcademicYearSemesterAndProgramme)
+}
+
 exports.addGroup = addGroup
 exports.getGroup = getGroup
 exports.getGroupList = getGroupList
 exports.addSubGroup = addSubGroup
 exports.getSubGroup = getSubGroup
 exports.getSubGroupList = getSubGroupList
+exports.getGroupsCountByAcademicYear = getGroupsCountByAcademicYear
+exports.getGroupsCountByAcademicYearAndSemester = getGroupsCountByAcademicYearAndSemester
+exports.getGroupsCountByAcademicYearSemesterAndProgramme = getGroupsCountByAcademicYearSemesterAndProgramme
