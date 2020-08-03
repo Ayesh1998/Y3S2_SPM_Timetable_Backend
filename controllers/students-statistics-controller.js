@@ -208,8 +208,10 @@ const getGroupsCountByAcademicYear = async (req, res, next) => {
 
   for (let i = 0; i < groupsCountByAcademicYear.length; i++) {
     let subGroupsCount = 0
-    if (subGroupsCountByAcademicYear[i] !== undefined) {
-      subGroupsCount = subGroupsCountByAcademicYear[i].count
+    for (let j = 0; j < subGroupsCountByAcademicYear.length; j++) {
+      if (groupsCountByAcademicYear[i]._id === subGroupsCountByAcademicYear[j]._id) {
+        subGroupsCount = subGroupsCountByAcademicYear[j].count
+      }
     }
     groupsCountByAcademicYear[i] = {
       ...groupsCountByAcademicYear[i],
@@ -269,13 +271,17 @@ const getGroupsCountByAcademicYearAndSemester = async (req, res, next) => {
   let yearAndSemester
 
   for (let i = 0; i < groupsCountByAcademicYearAndSemester.length; i++) {
-    const academicYear = groupsCountByAcademicYearAndSemester[i]._id.year
-    const academicSemester = groupsCountByAcademicYearAndSemester[i]._id.semester
+    const academicYearGroup = groupsCountByAcademicYearAndSemester[i]._id.year
+    const academicSemesterGroup = groupsCountByAcademicYearAndSemester[i]._id.semester
     let subGroupsCount = 0
-    if (subGroupsCountByAcademicYearAndSemester[i] !== undefined) {
-      subGroupsCount = subGroupsCountByAcademicYearAndSemester[i].count
+    for (let j = 0; j < subGroupsCountByAcademicYearAndSemester.length; j++) {
+      const academicYearSubGroup = subGroupsCountByAcademicYearAndSemester[j]._id.year
+      const academicSemesterSubGroup = subGroupsCountByAcademicYearAndSemester[j]._id.semester
+      if (academicYearGroup === academicYearSubGroup && academicSemesterGroup === academicSemesterSubGroup) {
+        subGroupsCount = subGroupsCountByAcademicYearAndSemester[j].count
+      }
     }
-    yearAndSemester = `Y${academicYear}.S${academicSemester}`
+    yearAndSemester = `Y${academicYearGroup}.S${academicSemesterGroup}`
     groupsCountByAcademicYearAndSemester[i] = {
       ...groupsCountByAcademicYearAndSemester[i],
       yearAndSemester: yearAndSemester,
@@ -337,14 +343,19 @@ const getGroupsCountByAcademicYearSemesterAndProgramme = async (req, res, next) 
   let yearSemesterAndProgramme
 
   for (let i = 0; i < groupsCountByAcademicYearSemesterAndProgramme.length; i++) {
-    const academicYear = groupsCountByAcademicYearSemesterAndProgramme[i]._id.year
-    const academicSemester = groupsCountByAcademicYearSemesterAndProgramme[i]._id.semester
-    const programme = groupsCountByAcademicYearSemesterAndProgramme[i]._id.programme
+    const academicYearGroup = groupsCountByAcademicYearSemesterAndProgramme[i]._id.year
+    const academicSemesterGroup = groupsCountByAcademicYearSemesterAndProgramme[i]._id.semester
+    const programmeGroup = groupsCountByAcademicYearSemesterAndProgramme[i]._id.programme
     let subGroupsCount = 0
-    if (subGroupsCountByAcademicYearSemesterAndProgramme[i] !== undefined) {
-      subGroupsCount = subGroupsCountByAcademicYearSemesterAndProgramme[i].count
+    for (let j = 0; j < subGroupsCountByAcademicYearSemesterAndProgramme.length; j++) {
+      const academicYearSubGroup = subGroupsCountByAcademicYearSemesterAndProgramme[j]._id.year
+      const academicSemesterSubGroup = subGroupsCountByAcademicYearSemesterAndProgramme[j]._id.semester
+      const programmeSubGroup = subGroupsCountByAcademicYearSemesterAndProgramme[j]._id.programme
+      if (academicYearGroup === academicYearSubGroup && academicSemesterGroup === academicSemesterSubGroup && programmeGroup === programmeSubGroup) {
+        subGroupsCount = subGroupsCountByAcademicYearSemesterAndProgramme[j].count
+      }
     }
-    yearSemesterAndProgramme = `Y${academicYear}.S${academicSemester}.${programme}`
+    yearSemesterAndProgramme = `Y${academicYearGroup}.S${academicSemesterGroup}.${programmeGroup}`
     groupsCountByAcademicYearSemesterAndProgramme[i] = {
       ...groupsCountByAcademicYearSemesterAndProgramme[i],
       yearSemesterAndProgramme: yearSemesterAndProgramme,
