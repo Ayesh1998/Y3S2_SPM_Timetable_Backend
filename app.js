@@ -5,8 +5,13 @@ const bodyParser = require('body-parser')
 
 const HttpError = require('./models/http-errors')
 const WorkingDaysAndHours = require('./routes/working-days-hours')
-const BuildingRoutes = require('./routes/buildings.routes')
-const RoomRoutes = require('./routes/rooms.routes')
+const BuildingsRoutes = require('./routes/buildings.routes')
+const RoomsRoutes = require('./routes/rooms.routes')
+const RoomsUnavailabilityRoutes = require('./routes/unavailable-rooms.routes')
+const StudentsStatisticsRoutes = require('./routes/students-statistics.routes')
+const SubjectsStatisticsRoutes = require('./routes/subjects-statistics.routes')
+const LecturersStatisticsRoutes = require('./routes/lecturers-statistics.routes')
+const AddRoomsRoutes = require('./routes/add-rooms.routes')
 
 require('dotenv').config()
 
@@ -22,8 +27,13 @@ app.use(bodyParser.json())
 app.use(cors())
 
 app.use('/workingDaysHours', WorkingDaysAndHours)
-app.use('/buildings', BuildingRoutes)
-app.use('/rooms', RoomRoutes)
+app.use('/buildings', BuildingsRoutes)
+app.use('/rooms', RoomsRoutes)
+app.use('/unavailableRooms', RoomsUnavailabilityRoutes)
+app.use('/studentsStatistics', StudentsStatisticsRoutes)
+app.use('/subjectsStatistics', SubjectsStatisticsRoutes)
+app.use('/lecturersStatistics', LecturersStatisticsRoutes)
+app.use('/addRooms', AddRoomsRoutes)
 
 app.use(() => {
   throw new HttpError('Could not find this route.', 404)

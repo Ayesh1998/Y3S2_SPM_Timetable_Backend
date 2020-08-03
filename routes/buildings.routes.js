@@ -9,4 +9,4 @@ router.delete('/buildings/:id', BuildingController.deleteBuilding)
 router.get('/buildings/:id', BuildingController.getBuilding)
 router.get('/buildings', BuildingController.getBuildingList)
 
-module.exports = router;
+module.exports = router

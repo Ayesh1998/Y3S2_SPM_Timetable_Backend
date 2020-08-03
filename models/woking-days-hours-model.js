@@ -10,7 +10,7 @@ const WorkingDaysAndHoursSchema = new Schema({
   },
 
   workingDays: [{
-    day:{
+    day: {
       type: String,
     }
   }],
@@ -21,7 +21,7 @@ const WorkingDaysAndHoursSchema = new Schema({
   },
 
   timeSlots: [{
-    type:{
+    type: {
       type: String,
     },
   }],

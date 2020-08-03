@@ -1,4 +1,4 @@
-const HttpError = require('../models/http-errors')
+const HttpErrorsModel = require('../models/http-errors')
 const BuildingModel = require('../models/buildings.model')
 
 const addBuilding = async (req, res, next) => {
@@ -13,7 +13,8 @@ const addBuilding = async (req, res, next) => {
       buildingName: buildingName
     })
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   if (existingBuilding) {
@@ -21,7 +22,7 @@ const addBuilding = async (req, res, next) => {
       exists: true,
       message: 'A building with the same name already exists.'
     })
-    return next(new HttpError('A building with the same name already exists.', 409))
+    return next(new HttpErrorsModel('A building with the same name already exists.', 409))
   }
 
   const newBuilding = new BuildingModel({
@@ -31,7 +32,8 @@ const addBuilding = async (req, res, next) => {
   try {
     await newBuilding.save()
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   res.status(201).send({
@@ -54,7 +56,8 @@ const updateBuilding = async (req, res, next) => {
   try {
     building = await BuildingModel.findById(id)
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   try {
@@ -62,7 +65,8 @@ const updateBuilding = async (req, res, next) => {
       buildingName: buildingName
     })
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   if (existingBuilding && buildingName !== building.buildingName) {
@@ -70,7 +74,7 @@ const updateBuilding = async (req, res, next) => {
       exists: true,
       message: 'A building with the same name already exists.'
     })
-    return next(new HttpError('A building with the same name already exists.', 409))
+    return next(new HttpErrorsModel('A building with the same name already exists.', 409))
   }
 
   building.buildingName = buildingName
@@ -78,7 +82,8 @@ const updateBuilding = async (req, res, next) => {
   try {
     await building.save()
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   res.status(200).send({
@@ -97,7 +102,8 @@ const deleteBuilding = async (req, res, next) => {
     building = await BuildingModel.findById(id)
     await building.remove()
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   res.status(200).send({
@@ -115,7 +121,8 @@ const getBuilding = async (req, res, next) => {
   try {
     building = await BuildingModel.findById(id)
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   res.status(200).send(building)
@@ -127,7 +134,8 @@ const getBuildingList = async (req, res, next) => {
   try {
     buildingList = await BuildingModel.find()
   } catch (error) {
-    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
   res.status(200).send(buildingList)
