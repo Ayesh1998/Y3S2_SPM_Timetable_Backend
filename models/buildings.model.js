@@ -9,6 +9,12 @@ const BuildingsSchema = new Schema({
     required: true,
     unique: true,
     trim: true
+  },
+  centerName: {
+    type: String,
+    required: true,
+    unique: false,
+    trim: true
   }
 }, {
   timestamps: true,
