@@ -9,5 +9,8 @@ router.delete('/rooms/:id', RoomController.deleteRoom)
 router.get('/rooms/:id', RoomController.getRoom)
 router.get('/rooms', RoomController.getRoomList)
 router.get('/roomsByBuilding', RoomController.getRoomListByBuilding)
+router.get('/roomsByRoomName', RoomController.getRoomListByRoomName)
+router.get('/roomsByRoomType', RoomController.getRoomListByRoomType)
+router.get('/searchRooms', RoomController.searchRooms)
 
 module.exports = router
