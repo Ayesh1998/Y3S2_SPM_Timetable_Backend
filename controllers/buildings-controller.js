@@ -5,7 +5,8 @@ const addBuilding = async (req, res, next) => {
   let existingBuilding
 
   const {
-    buildingName
+    buildingName,
+    centerName
   } = req.body
 
   try {
@@ -26,7 +27,8 @@ const addBuilding = async (req, res, next) => {
   }
 
   const newBuilding = new BuildingModel({
-    buildingName
+    buildingName,
+    centerName
   })
 
   try {
@@ -50,7 +52,8 @@ const updateBuilding = async (req, res, next) => {
   } = req.params
 
   const {
-    buildingName
+    buildingName,
+    centerName
   } = req.body
 
   try {
@@ -78,6 +81,7 @@ const updateBuilding = async (req, res, next) => {
   }
 
   building.buildingName = buildingName
+  building.centerName = centerName
 
   try {
     await building.save()
@@ -141,8 +145,106 @@ const getBuildingList = async (req, res, next) => {
   res.status(200).send(buildingList)
 }
 
+const getBuildingListByCenter = async (req, res, next) => {
+  let buildingList
+
+  const {
+    centerName
+  } = req.body
+
+  try {
+    buildingList = await BuildingModel.find({
+      centerName: centerName
+    })
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send(buildingList)
+}
+
+const getBuildingListByBuildingName = async (req, res, next) => {
+  let buildingList
+
+  const {
+    buildingName
+  } = req.body
+
+  try {
+    buildingList = await BuildingModel.find({
+      buildingName: {
+        $regex: '.*' + buildingName + '.*',
+        $options: 'i'
+      }
+    })
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send(buildingList)
+}
+
+const searchBuildings = async (req, res, next) => {
+  let buildingList
+
+  const {
+    buildingName,
+    centerName
+  } = req.body
+
+  if (buildingName !== undefined && centerName !== undefined) {
+    try {
+      buildingList = await BuildingModel.find({
+        buildingName: {
+          $regex: '.*' + buildingName + '.*',
+          $options: 'i'
+        },
+        centerName: centerName
+      })
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  } else if (buildingName !== undefined) {
+    try {
+      buildingList = await BuildingModel.find({
+        buildingName: {
+          $regex: '.*' + buildingName + '.*',
+          $options: 'i'
+        }
+      })
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  } else if (centerName !== undefined) {
+    try {
+      buildingList = await BuildingModel.find({
+        centerName: centerName
+      })
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  } else {
+    try {
+      buildingList = await BuildingModel.find()
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  }
+
+  res.status(200).send(buildingList)
+}
+
 exports.addBuilding = addBuilding
 exports.updateBuilding = updateBuilding
 exports.deleteBuilding = deleteBuilding
 exports.getBuilding = getBuilding
 exports.getBuildingList = getBuildingList
+exports.getBuildingListByCenter = getBuildingListByCenter
+exports.getBuildingListByBuildingName = getBuildingListByBuildingName
+exports.searchBuildings = searchBuildings
