@@ -16,8 +16,15 @@ const WorkingDaysAndHoursSchema = new Schema({
   }],
 
   workingTimePerDay: {
-    type: String,
-    trim: true
+    hours:{
+      type: String,
+      trim: true
+    },
+    minutes:{
+      type: String,
+      trim: true
+    },
+
   },
 
   timeSlots: [{
