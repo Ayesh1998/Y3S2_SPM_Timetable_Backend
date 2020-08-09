@@ -16,11 +16,11 @@ const WorkingDaysAndHoursSchema = new Schema({
   }],
 
   workingTimePerDay: {
-    hours:{
+    hours: {
       type: String,
       trim: true
     },
-    minutes:{
+    minutes: {
       type: String,
       trim: true
     },
