@@ -9,5 +9,8 @@ router.get("/getWorkingDaysAndHours", WorkingDaysHoursController.getWorkingDaysA
 
 router.put("/editWorkingDaysAndHours", WorkingDaysHoursController.editWorkingDaysAndHours);
 
+router.delete("/deleteWorkingDaysAndHours", WorkingDaysHoursController.deleteWorkingDaysAndHours);
+
+
 
 module.exports = router;

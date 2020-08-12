@@ -47,6 +47,15 @@ const editWorkingDaysAndHours = async (req, res, next) => {
 
 };
 
+const deleteWorkingDaysAndHours = async (req, res, next) => {
+  const {id} = req.body;
+  WorkingDaysAndHours.findByIdAndDelete((id), {},(err, item) => {
+    if (err) return res.status(500).send(err)
+  })
+
+};
+
 exports.createWorkingDaysAndHours = createWorkingDaysAndHours;
 exports.editWorkingDaysAndHours = editWorkingDaysAndHours;
 exports.getWorkingDaysAndHours = getWorkingDaysAndHours;
+exports.deleteWorkingDaysAndHours = deleteWorkingDaysAndHours;
