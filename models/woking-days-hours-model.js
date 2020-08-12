@@ -8,31 +8,31 @@ const WorkingDaysAndHoursSchema = new Schema({
     type: Number,
     trim: true
   },
-
+  weekType: {
+    type: String,
+    trim: true
+  },
   workingDays: [{
     day: {
       type: String,
     }
   }],
-
   workingTimePerDay: {
-    hours: {
+    hours:{
       type: String,
       trim: true
     },
-    minutes: {
+    minutes:{
       type: String,
       trim: true
     },
 
   },
-
   timeSlots: [{
     type: {
       type: String,
     },
   }],
-
 }, {
   timestamps: true,
   collection: 'WorkingDaysAndHours'
