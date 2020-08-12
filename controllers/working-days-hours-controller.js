@@ -2,13 +2,14 @@ const HttpError = require("../models/http-errors");
 const WorkingDaysAndHours = require("../models/woking-days-hours-model");
 
 const createWorkingDaysAndHours = async (req, res, next) => {
-  const {numberOfWorkingDays, workingDays, workingTimePerDay, timeSlots} = req.body;
+  const {numberOfWorkingDays, workingDays, workingTimePerDay, timeSlots, weekType} = req.body;
 
   const WorkingDaysAndHoursItem = new WorkingDaysAndHours({
     numberOfWorkingDays,
     workingDays,
     workingTimePerDay,
-    timeSlots
+    timeSlots,
+    weekType
   });
 
   try {

@@ -10,7 +10,6 @@ const WorkingDaysAndHoursSchema = new Schema({
   },
   weekType: {
     type: String,
-    trim: true
   },
   workingDays: [{
     day: {
