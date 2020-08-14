@@ -11,6 +11,4 @@ router.put("/editWorkingDaysAndHours", WorkingDaysHoursController.editWorkingDay
 
 router.delete("/deleteWorkingDaysAndHours", WorkingDaysHoursController.deleteWorkingDaysAndHours);
 
-
-
 module.exports = router;
