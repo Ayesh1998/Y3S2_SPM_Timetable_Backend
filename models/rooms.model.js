@@ -64,12 +64,13 @@ const RoomsSchema = new Schema({
       unique: false,
       trim: true
     }
-  }],
+  }]
 }, {
   timestamps: true,
   collection: 'Rooms'
 })
 
+// noinspection JSUnresolvedFunction
 RoomsSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Rooms', RoomsSchema)

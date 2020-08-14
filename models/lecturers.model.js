@@ -51,12 +51,13 @@ const LecturersSchema = new Schema({
     required: true,
     unique: true,
     trim: true
-  },
+  }
 }, {
   timestamps: true,
   collection: 'Lecturers'
 })
 
+// noinspection JSUnresolvedFunction
 LecturersSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Lecturers', LecturersSchema)

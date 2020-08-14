@@ -51,12 +51,13 @@ const SubGroupsSchema = new Schema({
     required: true,
     unique: true,
     trim: true
-  },
+  }
 }, {
   timestamps: true,
   collection: 'SubGroups'
 })
 
+// noinspection JSUnresolvedFunction
 SubGroupsSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('SubGroups', SubGroupsSchema)

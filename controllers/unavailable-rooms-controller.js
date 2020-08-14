@@ -69,7 +69,7 @@ const removeUnavailableTimes = async (req, res, next) => {
       res.status(200).send({
         message: 'Room unavailability deleted successfully!'
       })
-      break;
+      break
     }
   }
 }

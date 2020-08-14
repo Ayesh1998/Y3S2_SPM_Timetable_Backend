@@ -51,12 +51,13 @@ const SubjectsSchema = new Schema({
     required: true,
     unique: false,
     trim: true
-  },
+  }
 }, {
   timestamps: true,
   collection: 'Subjects'
 })
 
+// noinspection JSUnresolvedFunction
 SubjectsSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Subjects', SubjectsSchema)
