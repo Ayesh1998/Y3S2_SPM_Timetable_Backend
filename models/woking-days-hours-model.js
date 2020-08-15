@@ -8,13 +8,14 @@ const WorkingDaysAndHoursSchema = new Schema({
     type: Number,
     trim: true
   },
-
+  weekType: {
+    type: String
+  },
   workingDays: [{
     day: {
-      type: String,
+      type: String
     }
   }],
-
   workingTimePerDay: {
     hours: {
       type: String,
@@ -23,21 +24,19 @@ const WorkingDaysAndHoursSchema = new Schema({
     minutes: {
       type: String,
       trim: true
-    },
-
+    }
   },
-
   timeSlots: [{
     type: {
-      type: String,
-    },
-  }],
-
+      type: String
+    }
+  }]
 }, {
   timestamps: true,
   collection: 'WorkingDaysAndHours'
 })
 
+// noinspection JSUnresolvedFunction
 WorkingDaysAndHoursSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('WorkingDaysAndHours', WorkingDaysAndHoursSchema)
