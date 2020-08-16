@@ -9,12 +9,19 @@ const BuildingsSchema = new Schema({
     required: true,
     unique: true,
     trim: true
+  },
+  centerName: {
+    type: String,
+    required: true,
+    unique: false,
+    trim: true
   }
 }, {
   timestamps: true,
   collection: 'Buildings'
 })
 
+// noinspection JSUnresolvedFunction
 BuildingsSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Buildings', BuildingsSchema)

@@ -172,9 +172,154 @@ const getRoomListByBuilding = async (req, res, next) => {
   res.status(200).send(roomList)
 }
 
+const getRoomListByRoomName = async (req, res, next) => {
+  let roomList
+
+  const {
+    roomName
+  } = req.body
+
+  try {
+    roomList = await RoomModel.find({
+      roomName: {
+        $regex: '.*' + roomName + '.*',
+        $options: 'i'
+      }
+    })
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send(roomList)
+}
+
+const getRoomListByRoomType = async (req, res, next) => {
+  let roomList
+
+  const {
+    roomType
+  } = req.body
+
+  try {
+    roomList = await RoomModel.find({
+      roomType: roomType
+    })
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send(roomList)
+}
+
+const searchRooms = async (req, res, next) => {
+  let roomList
+
+  const {
+    roomName,
+    buildingName,
+    roomType
+  } = req.body
+
+  if (roomName !== undefined && buildingName !== undefined && roomType !== undefined) {
+    try {
+      roomList = await RoomModel.find({
+        roomName: {
+          $regex: '.*' + roomName + '.*',
+          $options: 'i'
+        },
+        buildingName: buildingName,
+        roomType: roomType
+      })
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  } else if (roomName !== undefined && buildingName !== undefined) {
+    try {
+      roomList = await RoomModel.find({
+        roomName: {
+          $regex: '.*' + roomName + '.*',
+          $options: 'i'
+        },
+        buildingName: buildingName
+      })
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  } else if (roomName !== undefined && roomType !== undefined) {
+    try {
+      roomList = await RoomModel.find({
+        roomName: {
+          $regex: '.*' + roomName + '.*',
+          $options: 'i'
+        },
+        roomType: roomType
+      })
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  } else if (buildingName !== undefined && roomType !== undefined) {
+    try {
+      roomList = await RoomModel.find({
+        buildingName: buildingName,
+        roomType: roomType
+      })
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  } else if (roomName !== undefined) {
+    try {
+      roomList = await RoomModel.find({
+        roomName: {
+          $regex: '.*' + roomName + '.*',
+          $options: 'i'
+        }
+      })
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  } else if (buildingName !== undefined) {
+    try {
+      roomList = await RoomModel.find({
+        buildingName: buildingName
+      })
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  } else if (roomType !== undefined) {
+    try {
+      roomList = await RoomModel.find({
+        roomType: roomType
+      })
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  } else {
+    try {
+      roomList = await RoomModel.find()
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  }
+
+  res.status(200).send(roomList)
+}
+
 exports.addRoom = addRoom
 exports.updateRoom = updateRoom
 exports.deleteRoom = deleteRoom
 exports.getRoom = getRoom
 exports.getRoomList = getRoomList
 exports.getRoomListByBuilding = getRoomListByBuilding
+exports.getRoomListByRoomName = getRoomListByRoomName
+exports.getRoomListByRoomType = getRoomListByRoomType
+exports.searchRooms = searchRooms
