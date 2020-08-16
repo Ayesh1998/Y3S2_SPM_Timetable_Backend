@@ -19,12 +19,12 @@ router.get('/buildings/:id', BuildingController.getBuilding)
 router.get('/buildings', BuildingController.getBuildingList)
 
 // noinspection JSCheckFunctionSignatures
-router.get('/buildingsByCenter', BuildingController.getBuildingListByCenter)
+router.post('/buildingsByCenter', BuildingController.getBuildingListByCenter)
 
 // noinspection JSCheckFunctionSignatures
-router.get('/buildingsByBuildingName', BuildingController.getBuildingListByBuildingName)
+router.post('/buildingsByBuildingName', BuildingController.getBuildingListByBuildingName)
 
 // noinspection JSCheckFunctionSignatures
-router.get('/searchBuildings', BuildingController.searchBuildings)
+router.post('/searchBuildings', BuildingController.searchBuildings)
 
 module.exports = router
