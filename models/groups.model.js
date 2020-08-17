@@ -37,11 +37,17 @@ const GroupsSchema = new Schema({
   groupId: {
     type: String,
     required: true,
-    unique: true,
+    unique: false,
     trim: true
   },
   subGroups: [{
     subGroup: {
+      type: Number,
+      required: true,
+      unique: false,
+      trim: true
+    },
+    subGroupId: {
       type: String,
       required: true,
       unique: true,
