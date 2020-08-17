@@ -29,7 +29,7 @@ const GroupsSchema = new Schema({
     trim: true
   },
   group: {
-    type: String,
+    type: Number,
     required: true,
     unique: false,
     trim: true
@@ -39,7 +39,21 @@ const GroupsSchema = new Schema({
     required: true,
     unique: true,
     trim: true
-  }
+  },
+  subGroups: [{
+    subGroup: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true
+    }
+  }],
+  availableSubGroup: {
+    type: Boolean,
+    required: false,
+    unique: false,
+    trim: true
+  },
 }, {
   timestamps: true,
   collection: 'Groups'
