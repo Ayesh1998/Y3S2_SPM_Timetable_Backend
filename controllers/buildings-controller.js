@@ -194,7 +194,7 @@ const searchBuildings = async (req, res, next) => {
     centerName
   } = req.body
 
-  if (buildingName !== undefined && centerName !== undefined) {
+  if (buildingName !== "" && centerName !== "") {
     try {
       buildingList = await BuildingModel.find({
         buildingName: {
@@ -207,7 +207,7 @@ const searchBuildings = async (req, res, next) => {
       console.log(error)
       return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
     }
-  } else if (buildingName !== undefined) {
+  } else if (buildingName !== "") {
     try {
       buildingList = await BuildingModel.find({
         buildingName: {
@@ -219,7 +219,7 @@ const searchBuildings = async (req, res, next) => {
       console.log(error)
       return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
     }
-  } else if (centerName !== undefined) {
+  } else if (centerName !== "") {
     try {
       buildingList = await BuildingModel.find({
         centerName: centerName

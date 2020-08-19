@@ -13,8 +13,17 @@ const StudentsStatisticsRoutes = require('./routes/students-statistics.routes')
 const SubjectsStatisticsRoutes = require('./routes/subjects-statistics.routes')
 const LecturersStatisticsRoutes = require('./routes/lecturers-statistics.routes')
 const AddRoomsRoutes = require('./routes/add-rooms.routes')
+
+const Groups = require('./routes/groups.routes')
+const SubGroups = require('./routes/subGroups.routes')
+const Tags = require('./routes/tags.routes')
+const YearSems = require('./routes/year-semester.routes')
+const Programs = require('./routes/programs.routes')
+const GroupNums = require('./routes/groupNums.routes')
+const SubGroupNums = require('./routes/subGroupNums.routes')
 const LecturersRoutes = require('./routes/lecturers.routes')
 const SubjectsRoutes = require('./routes/subjects.routes')
+
 
 require('dotenv').config()
 
@@ -40,6 +49,14 @@ app.use('/lecturersStatistics', LecturersStatisticsRoutes)
 app.use('/addRooms', AddRoomsRoutes)
 app.use('/lecturers', LecturersRoutes)
 app.use('/subjects', SubjectsRoutes)
+app.use('/groups', Groups)
+app.use('/subGroups', SubGroups)
+app.use('/tags', Tags)
+app.use('/yearSems', YearSems)
+app.use('/programs', Programs)
+app.use('/groupNums', GroupNums)
+app.use('/subGroupNums', SubGroupNums)
+
 
 app.use(() => {
   throw new HttpError('Could not find this route.', 404)
