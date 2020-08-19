@@ -11,7 +11,7 @@ const LecturersSchema = new Schema({
     trim: true
   },
   employeeId: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
     trim: true
