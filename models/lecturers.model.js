@@ -41,7 +41,7 @@ const LecturersSchema = new Schema({
     trim: true
   },
   level: {
-    type: Number,
+    type: String,
     required: true,
     unique: false,
     trim: true

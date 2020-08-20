@@ -7,7 +7,7 @@ const LecturersController = require('../controllers/lecturers-controller')
 router.post('/lecturers', LecturersController.addLecturers)
 
 // noinspection JSCheckFunctionSignatures
-router.put('/lecturers/:id', LecturersController.updateLecturer)
+router.put('/lecturers', LecturersController.updateLecturer)
 
 // noinspection JSCheckFunctionSignatures
 router.delete('/lecturers/:id', LecturersController.deleteLecturer)

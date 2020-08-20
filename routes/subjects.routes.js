@@ -7,7 +7,7 @@ const SubjectsController = require('../controllers/subjects-controller')
 router.post('/subjects', SubjectsController.addSubjects)
 
 // noinspection JSCheckFunctionSignatures
-router.put('/subjects/:id', SubjectsController.updateSubject)
+router.put('/subjects', SubjectsController.updateSubject)
 
 // noinspection JSCheckFunctionSignatures
 router.delete('/subjects/:id', SubjectsController.deleteSubjects)
