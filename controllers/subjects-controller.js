@@ -60,71 +60,77 @@ const updateSubject = async (req, res, next) => {
     let existingSubject
 
     const {
-        id
-    } = req.params
-
-    const {
-        offeredYear,
-        offeredSemester,
-        subjectName,
-        subjectCode,
-        numberOfLectureHours,
-        numberOfTutorialHours,
-        numberOfLabHours,
-        numberOfEvaluationHours
+        id,
+        finalObject
     } = req.body
 
-    try {
-        subject = await SubjectModel.findById(id)
-    } catch (error) {
-        console.log(error)
-        return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
-    }
+    // const {
+    //     offeredYear,
+    //     offeredSemester,
+    //     subjectName,
+    //     subjectCode,
+    //     numberOfLectureHours,
+    //     numberOfTutorialHours,
+    //     numberOfLabHours,
+    //     numberOfEvaluationHours
+    // } = req.body
 
-    try {
-        existingSubject = await SubjectModel.findOne({
-            subjectCode: subjectCode
-        })
-    } catch (error) {
-        console.log(error)
-        return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
-    }
-
-    if (existingSubject && subjectCode !== subject.subjectCode) {
-        res.json({
-            exists: true,
-            message: 'A subject with the same name already exists.'
-        })
-        return next(new HttpErrorsModel('A subject with the same name already exists.', 409))
-    }
-
-    subject.offeredYear = offeredYear
-    subject.offeredSemester = offeredSemester
-    subject.subjectName = subjectName
-    subject.numberOfLectureHours = numberOfLectureHours
-    subject.numberOfTutorialHours = numberOfTutorialHours
-    subject.numberOfLabHours = numberOfLabHours
-    subject.numberOfEvaluationHours = numberOfEvaluationHours
-
-    try {
-        await subject.save()
-    } catch (error) {
-        console.log(error)
-        return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
-    }
-
-    res.status(200).send({
-        message: 'Subject updated successfully!'
+    // const {workingDaysAndHours, id} = req.body
+    const query = {'_id': id}
+    SubjectModel.findOneAndUpdate(query, finalObject, {upsert: true}, (err, item) => {
+        if (err) return res.send(500, {error: err})
+        return res.json({subjects: item, message: 'got results'})
     })
+    // try {
+    //     subject = await SubjectModel.findById(id)
+    // } catch (error) {
+    //     console.log(error)
+    //     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    // }
+    //
+    // try {
+    //     existingSubject = await SubjectModel.findOne({
+    //         subjectCode: subjectCode
+    //     })
+    // } catch (error) {
+    //     console.log(error)
+    //     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    // }
+    //
+    // if (existingSubject && subjectCode !== subject.subjectCode) {
+    //     res.json({
+    //         exists: true,
+    //         message: 'A subject with the same name already exists.'
+    //     })
+    //     return next(new HttpErrorsModel('A subject with the same name already exists.', 409))
+    // }
+    //
+    // subject.offeredYear = offeredYear
+    // subject.offeredSemester = offeredSemester
+    // subject.subjectName = subjectName
+    // subject.numberOfLectureHours = numberOfLectureHours
+    // subject.numberOfTutorialHours = numberOfTutorialHours
+    // subject.numberOfLabHours = numberOfLabHours
+    // subject.numberOfEvaluationHours = numberOfEvaluationHours
+    //
+    // try {
+    //     await subject.save()
+    // } catch (error) {
+    //     console.log(error)
+    //     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    // }
+    //
+    // res.status(200).send({
+    //     message: 'Subject updated successfully!'
+    // })
 }
 
 const deleteSubjects = async (req, res, next) => {
     let subject
-
     const {
         id
-    } = req.params
-
+    } = req.body
+    console.log(id)
     try {
         subject = await SubjectModel.findById(id)
         await subject.remove()
@@ -143,7 +149,7 @@ const getSubject = async (req, res, next) => {
 
     const {
         id
-    } = req.params
+    } = req.body
 
     try {
         subject = await SubjectModel.findById(id)
