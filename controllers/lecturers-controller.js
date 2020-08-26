@@ -44,7 +44,7 @@ const addLecturers = async (req, res, next) => {
         rank
     })
 
-    // console.log(newLecturer)
+    console.log(newLecturer)
 
     try {
         await newLecturer.save()
