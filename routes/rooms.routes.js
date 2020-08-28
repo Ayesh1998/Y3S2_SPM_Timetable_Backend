@@ -19,15 +19,15 @@ router.get('/rooms/:id', RoomController.getRoom)
 router.get('/rooms', RoomController.getRoomList)
 
 // noinspection JSCheckFunctionSignatures
-router.get('/roomsByBuilding', RoomController.getRoomListByBuilding)
+router.post('/roomsByBuilding', RoomController.getRoomListByBuilding)
 
 // noinspection JSCheckFunctionSignatures
-router.get('/roomsByRoomName', RoomController.getRoomListByRoomName)
+router.post('/roomsByRoomName', RoomController.getRoomListByRoomName)
 
 // noinspection JSCheckFunctionSignatures
-router.get('/roomsByRoomType', RoomController.getRoomListByRoomType)
+router.post('/roomsByRoomType', RoomController.getRoomListByRoomType)
 
 // noinspection JSCheckFunctionSignatures
-router.get('/searchRooms', RoomController.searchRooms)
+router.post('/searchRooms', RoomController.searchRooms)
 
 module.exports = router

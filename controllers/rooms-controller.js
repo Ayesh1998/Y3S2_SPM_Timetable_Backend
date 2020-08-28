@@ -222,7 +222,7 @@ const searchRooms = async (req, res, next) => {
     roomType
   } = req.body
 
-  if (roomName !== undefined && buildingName !== undefined && roomType !== undefined) {
+  if (roomName !== "" && buildingName !== "" && roomType !== "") {
     try {
       roomList = await RoomModel.find({
         roomName: {
@@ -236,7 +236,7 @@ const searchRooms = async (req, res, next) => {
       console.log(error)
       return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
     }
-  } else if (roomName !== undefined && buildingName !== undefined) {
+  } else if (roomName !== "" && buildingName !== "") {
     try {
       roomList = await RoomModel.find({
         roomName: {
@@ -249,7 +249,7 @@ const searchRooms = async (req, res, next) => {
       console.log(error)
       return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
     }
-  } else if (roomName !== undefined && roomType !== undefined) {
+  } else if (roomName !== "" && roomType !== "") {
     try {
       roomList = await RoomModel.find({
         roomName: {
@@ -262,7 +262,7 @@ const searchRooms = async (req, res, next) => {
       console.log(error)
       return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
     }
-  } else if (buildingName !== undefined && roomType !== undefined) {
+  } else if (buildingName !== "" && roomType !== "") {
     try {
       roomList = await RoomModel.find({
         buildingName: buildingName,
@@ -272,7 +272,7 @@ const searchRooms = async (req, res, next) => {
       console.log(error)
       return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
     }
-  } else if (roomName !== undefined) {
+  } else if (roomName !== "") {
     try {
       roomList = await RoomModel.find({
         roomName: {
@@ -284,7 +284,7 @@ const searchRooms = async (req, res, next) => {
       console.log(error)
       return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
     }
-  } else if (buildingName !== undefined) {
+  } else if (buildingName !== "") {
     try {
       roomList = await RoomModel.find({
         buildingName: buildingName
@@ -293,7 +293,7 @@ const searchRooms = async (req, res, next) => {
       console.log(error)
       return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
     }
-  } else if (roomType !== undefined) {
+  } else if (roomType !== "") {
     try {
       roomList = await RoomModel.find({
         roomType: roomType

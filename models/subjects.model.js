@@ -29,25 +29,25 @@ const SubjectsSchema = new Schema({
     trim: true
   },
   numberOfLectureHours: {
-    type: Number,
+    type: String,
     required: true,
     unique: false,
     trim: true
   },
   numberOfTutorialHours: {
-    type: Number,
+    type: String,
     required: true,
     unique: false,
     trim: true
   },
   numberOfLabHours: {
-    type: Number,
+    type: String,
     required: true,
     unique: false,
     trim: true
   },
   numberOfEvaluationHours: {
-    type: Number,
+    type: String,
     required: true,
     unique: false,
     trim: true
