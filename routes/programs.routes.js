@@ -17,5 +17,5 @@ router.put('/editPrograms', ProgramsController.editPrograms)
 
 // noinspection JSCheckFunctionSignatures
 router.delete('/deletePrograms', ProgramsController.deletePrograms)
- 
+
 module.exports = router

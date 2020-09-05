@@ -10,7 +10,7 @@ const GroupNumSchema = new Schema({
     unique: true,
     trim: true
   },
-  
+
 }, {
   timestamps: true,
   collection: 'GroupNum'

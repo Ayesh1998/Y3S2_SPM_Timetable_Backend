@@ -19,5 +19,4 @@ router.get('/subjects/:id', SubjectsController.getSubject)
 router.get('/subjects', SubjectsController.getSubjectsList)
 
 
-
 module.exports = router

@@ -2,7 +2,7 @@ const HttpError = require('../models/http-errors')
 const Tags = require('../models/tags.model')
 
 const createTags = async (req, res, next) => {
-  const {name,tagToken} = req.body
+  const {name, tagToken} = req.body
 
   const TagsItem = new Tags({
     name,
@@ -53,21 +53,21 @@ const deleteTags = async (req, res, next) => {
 }
 
 const getTag = async (req, res, next) => {
-    let tag
-  
-    const {
-      id
-    } = req.params
-  
-    try {
-      tag = await Tags.findById(id)
-    } catch (error) {
-      console.log(error)
-      return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
-    }
-  
-    res.status(200).send(tag)
+  let tag
+
+  const {
+    id
+  } = req.params
+
+  try {
+    tag = await Tags.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
   }
+
+  res.status(200).send(tag)
+}
 
 exports.createTags = createTags
 exports.editTags = editTags

@@ -2,7 +2,7 @@ const HttpError = require('../models/http-errors')
 const SubGroups = require('../models/sub-groups.model')
 
 const createSubGroups = async (req, res, next) => {
-  const {academicYear,academicSemester,academicYearAndSemester,programme, group,groupId,subGroup,subGroupId} = req.body
+  const {academicYear, academicSemester, academicYearAndSemester, programme, group, groupId, subGroup, subGroupId} = req.body
 
   const SubGroupsItem = new SubGroups({
     academicYear,
@@ -59,21 +59,21 @@ const deleteSubGroups = async (req, res, next) => {
 }
 
 const getSubGroup = async (req, res, next) => {
-    let subGroup
-  
-    const {
-      id
-    } = req.params
-  
-    try {
-      subGroup = await SubGroups.findById(id)
-    } catch (error) {
-      console.log(error)
-      return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
-    }
-  
-    res.status(200).send(subGroup)
+  let subGroup
+
+  const {
+    id
+  } = req.params
+
+  try {
+    subGroup = await SubGroups.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
   }
+
+  res.status(200).send(subGroup)
+}
 
 exports.createSubGroups = createSubGroups
 exports.editSubGroups = editSubGroups

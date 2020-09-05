@@ -10,7 +10,7 @@ const SubGroupNumSchema = new Schema({
     unique: true,
     trim: true
   },
-  
+
 }, {
   timestamps: true,
   collection: 'SubGroupNum'

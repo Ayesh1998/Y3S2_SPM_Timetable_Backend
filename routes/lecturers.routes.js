@@ -19,5 +19,4 @@ router.get('/lecturers/:id', LecturersController.getLecturer)
 router.get('/lecturers', LecturersController.getLecturersList)
 
 
-
 module.exports = router

@@ -17,5 +17,5 @@ router.put('/editYearSems', YearSemsController.editYearSems)
 
 // noinspection JSCheckFunctionSignatures
 router.delete('/deleteYearSems', YearSemsController.deleteYearSems)
- 
+
 module.exports = router

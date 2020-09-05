@@ -2,7 +2,7 @@ const HttpError = require('../models/http-errors')
 const YearSems = require('../models/year-semester.model')
 
 const createYearSems = async (req, res, next) => {
-  const {year,semester,yearSemToken} = req.body
+  const {year, semester, yearSemToken} = req.body
 
   const YearSemsItem = new YearSems({
     year,
@@ -54,21 +54,21 @@ const deleteYearSems = async (req, res, next) => {
 }
 
 const getYearSem = async (req, res, next) => {
-    let yearSem
-  
-    const {
-      id
-    } = req.params
-  
-    try {
-      tag = await YearSems.findById(id)
-    } catch (error) {
-      console.log(error)
-      return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
-    }
-  
-    res.status(200).send(tag)
+  let yearSem
+
+  const {
+    id
+  } = req.params
+
+  try {
+    tag = await YearSems.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
   }
+
+  res.status(200).send(tag)
+}
 
 exports.createYearSems = createYearSems
 exports.editYearSems = editYearSems

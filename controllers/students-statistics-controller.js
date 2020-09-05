@@ -11,7 +11,9 @@ const addGroup = async (req, res, next) => {
     academicYearAndSemester,
     programme,
     group,
-    groupId
+    groupId,
+    subGroups,
+    availableSubGroup
   } = req.body
 
   try {
@@ -37,7 +39,9 @@ const addGroup = async (req, res, next) => {
     academicYearAndSemester,
     programme,
     group,
-    groupId
+    groupId,
+    subGroups,
+    availableSubGroup
   })
 
   try {

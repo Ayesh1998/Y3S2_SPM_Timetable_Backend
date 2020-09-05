@@ -17,5 +17,5 @@ router.put('/editTags', TagsController.editTags)
 
 // noinspection JSCheckFunctionSignatures
 router.delete('/deleteTags', TagsController.deleteTags)
- 
+
 module.exports = router

@@ -2,7 +2,7 @@ const HttpError = require('../models/http-errors')
 const SubGroupNums = require('../models/subGroupNums.model')
 
 const createSubGroupNums = async (req, res, next) => {
-  const { subGroupNum} = req.body
+  const {subGroupNum} = req.body
 
   const SubGroupNumsItem = new SubGroupNums({
     subGroupNum
@@ -25,7 +25,7 @@ const createSubGroupNums = async (req, res, next) => {
 
 // noinspection JSUnusedLocalSymbols
 const getSubGroupNums = async (req, res, next) => {
-    SubGroupNums.find({})
+  SubGroupNums.find({})
     .then((subGroupNums) =>
       res.json({subGroupNums: subGroupNums, message: 'got results'})
     )
@@ -52,21 +52,21 @@ const deleteSubGroupNums = async (req, res, next) => {
 }
 
 const getSubGroupNum = async (req, res, next) => {
-    let subGroupNum
-  
-    const {
-      id
-    } = req.params
-  
-    try {
-      subGroupNum = await SubGroupNums.findById(id)
-    } catch (error) {
-      console.log(error)
-      return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
-    }
-  
-    res.status(200).send(subGroupNum)
+  let subGroupNum
+
+  const {
+    id
+  } = req.params
+
+  try {
+    subGroupNum = await SubGroupNums.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
   }
+
+  res.status(200).send(subGroupNum)
+}
 
 exports.createSubGroupNums = createSubGroupNums
 exports.editSubGroupNums = editSubGroupNums

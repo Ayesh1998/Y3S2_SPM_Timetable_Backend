@@ -2,7 +2,7 @@ const HttpError = require('../models/http-errors')
 const GroupNums = require('../models/groupNums.model')
 
 const createGroupNums = async (req, res, next) => {
-  const { groupNum} = req.body
+  const {groupNum} = req.body
 
   const GroupNumsItem = new GroupNums({
     groupNum
@@ -52,21 +52,21 @@ const deleteGroupNums = async (req, res, next) => {
 }
 
 const getGroupNum = async (req, res, next) => {
-    let groupNum
-  
-    const {
-      id
-    } = req.params
-  
-    try {
-      groupNum = await GroupNums.findById(id)
-    } catch (error) {
-      console.log(error)
-      return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
-    }
-  
-    res.status(200).send(groupNum)
+  let groupNum
+
+  const {
+    id
+  } = req.params
+
+  try {
+    groupNum = await GroupNums.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
   }
+
+  res.status(200).send(groupNum)
+}
 
 exports.createGroupNums = createGroupNums
 exports.editGroupNums = editGroupNums
