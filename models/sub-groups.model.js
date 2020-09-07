@@ -51,7 +51,15 @@ const SubGroupsSchema = new Schema({
     required: true,
     unique: true,
     trim: true
-  }
+  },
+  possibleRooms: [{
+    roomName: {
+      type: String,
+      required: false,
+      unique: false,
+      trim: true
+    }
+  }]
 }, {
   timestamps: true,
   collection: 'SubGroups'

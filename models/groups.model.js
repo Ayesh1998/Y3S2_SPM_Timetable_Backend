@@ -60,6 +60,14 @@ const GroupsSchema = new Schema({
     unique: false,
     trim: true
   },
+  possibleRooms: [{
+    roomName: {
+      type: String,
+      required: false,
+      unique: false,
+      trim: true
+    }
+  }]
 }, {
   timestamps: true,
   collection: 'Groups'

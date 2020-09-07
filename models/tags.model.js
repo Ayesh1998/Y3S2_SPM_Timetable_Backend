@@ -16,6 +16,14 @@ const TagsSchema = new Schema({
     unique: true,
     trim: true
   },
+  possibleRooms: [{
+    roomName: {
+      type: String,
+      required: false,
+      unique: false,
+      trim: true
+    }
+  }]
 }, {
   timestamps: true,
   collection: 'Tags'
