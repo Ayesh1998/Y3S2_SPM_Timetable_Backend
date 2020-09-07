@@ -22,6 +22,7 @@ const StudentsStatisticsRoutes = require('./routes/students-statistics.routes')
 const SubjectsStatisticsRoutes = require('./routes/subjects-statistics.routes')
 const LecturersStatisticsRoutes = require('./routes/lecturers-statistics.routes')
 const AddRoomsRoutes = require('./routes/add-rooms.routes')
+const SessionsRoutes = require('./routes/sessions.routes')
 
 require('dotenv').config()
 
@@ -54,13 +55,14 @@ app.use('/studentsStatistics', StudentsStatisticsRoutes)
 app.use('/subjectsStatistics', SubjectsStatisticsRoutes)
 app.use('/lecturersStatistics', LecturersStatisticsRoutes)
 app.use('/addRooms', AddRoomsRoutes)
+app.use('/sessions', SessionsRoutes)
 
 app.use(() => {
   throw new HttpError('Could not find this route.', 404)
 })
 
 const uri = process.env.ATLAS_URI
-const port = process.env.PORT || 5000
+const port = process.env.PORT
 const dbName = process.env.DATABASE
 
 const options = {
