@@ -43,13 +43,13 @@ const GroupsSchema = new Schema({
   subGroups: [{
     subGroup: {
       type: Number,
-      required: true,
+      required: false,
       unique: false,
       trim: true
     },
     subGroupId: {
       type: String,
-      required: true,
+      required: false,
       unique: true,
       trim: true
     }
