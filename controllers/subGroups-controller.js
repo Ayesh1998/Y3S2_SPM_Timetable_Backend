@@ -63,22 +63,21 @@ const deleteSubGroupsWithSubId = async (req, res, next) => {
   const {subid} = req.body
   // noinspection JSUnusedLocalSymbols
   SubGroups.findOneAndDelete({subGroupId:subid}, {}, (err, item) => {
-    console.log(`#####################################3+${item}`)
+    
     if (err) return res.status(500).send(err)
   })
 }
 
 const deleteAllSubGroupsWithGroId = async (req, res, next) => {
-  console.log('-------------------')
+  
   const {groupid} = req.body
   // noinspection JSUnusedLocalSymbols
   let subgroups = await SubGroups.find({
     groupId:groupid
   })
-  console.log(groupid)
-  console.log(subgroups)
+  
   for(let i=0; i<subgroups.length; i++) {
-    console.log('**********************')
+    
     SubGroups.findByIdAndDelete((subgroups[i]._id), {}, (err, item) => {
       if (err) return res.status(500).send(err)
     })
