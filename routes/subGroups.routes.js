@@ -19,6 +19,9 @@ router.put('/editSubGroups', SubGroupsController.editSubGroups)
 router.delete('/deleteSubGroups', SubGroupsController.deleteSubGroups)
 
 // noinspection JSCheckFunctionSignatures
-router.delete('/deleteSubGroups1', SubGroupsController.deleteSubGroups1)
+router.delete('/ deleteAllSubGroupsWithGroId', SubGroupsController. deleteAllSubGroupsWithGroId)
+
+// noinspection JSCheckFunctionSignatures
+router.delete('/deleteSubGroupsWithSubId', SubGroupsController.deleteSubGroupsWithSubId)
 
 module.exports = router
