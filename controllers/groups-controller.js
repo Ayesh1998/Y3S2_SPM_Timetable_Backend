@@ -73,6 +73,20 @@ const getGroup = async (req, res, next) => {
   }
 
   res.status(200).send(group)
+} 
+
+const deleteSubGroupUpdate= async (req, res, next) => {
+  const {subKey} = req.body
+ 
+  Groups.findOneAndUpdate(
+    {},
+    {$pull : {subGroups:{_id : subKey}}},
+    {multi : true}
+    
+  )
+  .then(subGroups => console.log(subGroups))
+  .catch(err => console.log(err))
+
 }
 
 exports.createGroups = createGroups
@@ -80,4 +94,4 @@ exports.editGroups = editGroups
 exports.getGroups = getGroups
 exports.getGroup = getGroup
 exports.deleteGroups = deleteGroups
-
+exports.deleteSubGroupUpdate=deleteSubGroupUpdate
