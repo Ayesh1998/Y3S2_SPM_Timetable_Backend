@@ -4,7 +4,7 @@ const Programs = require('../models/programs.model')
 const createPrograms = async (req, res, next) => {
   const {name, programToken} = req.body
 
-  const ProgramsItem = new Tags({
+  const ProgramsItem = new Programs({
     name,
     programToken
   })
