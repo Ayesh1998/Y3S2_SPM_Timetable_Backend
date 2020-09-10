@@ -21,13 +21,12 @@ const YearSemSchema = new Schema({
     required: true,
     unique: true,
     trim: true
-  },
+  }
 }, {
   timestamps: true,
   collection: 'YearSem'
 })
 
-// noinspection JSUnresolvedFunction
 YearSemSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('YearSem', YearSemSchema)

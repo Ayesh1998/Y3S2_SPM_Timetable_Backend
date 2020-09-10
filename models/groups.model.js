@@ -73,7 +73,6 @@ const GroupsSchema = new Schema({
   collection: 'Groups'
 })
 
-// noinspection JSUnresolvedFunction
 GroupsSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Groups', GroupsSchema)

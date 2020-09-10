@@ -16,7 +16,6 @@ const GroupNumSchema = new Schema({
   collection: 'GroupNum'
 })
 
-// noinspection JSUnresolvedFunction
 GroupNumSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('GroupNum', GroupNumSchema)

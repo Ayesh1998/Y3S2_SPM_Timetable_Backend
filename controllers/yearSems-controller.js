@@ -25,7 +25,6 @@ const createYearSems = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const getYearSems = async (req, res, next) => {
   YearSems.find({})
     .then((yearsems) =>
@@ -34,7 +33,6 @@ const getYearSems = async (req, res, next) => {
     .catch((err) => res.status(400).json('Error: ' + err))
 }
 
-// noinspection JSUnusedLocalSymbols
 const editYearSems = async (req, res, next) => {
   const {yearsems, id} = req.body
   const query = {'_id': id}
@@ -44,10 +42,8 @@ const editYearSems = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const deleteYearSems = async (req, res, next) => {
   const {id} = req.body
-  // noinspection JSUnusedLocalSymbols
   YearSems.findByIdAndDelete((id), {}, (err, item) => {
     if (err) return res.status(500).send(err)
   })

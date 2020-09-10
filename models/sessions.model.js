@@ -14,6 +14,12 @@ const days = [
 ]
 
 const SessionsSchema = new Schema({
+  sessionId: {
+    type: Number,
+    required: true,
+    unique: true,
+    trim: true
+  },
   lecturers: [{
     lecturer: {
       type: String,
@@ -135,7 +141,6 @@ const SessionsSchema = new Schema({
   collection: 'Sessions'
 })
 
-// noinspection JSUnresolvedFunction
 SessionsSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Sessions', SessionsSchema)

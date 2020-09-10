@@ -27,7 +27,6 @@ const createWorkingDaysAndHours = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const getWorkingDaysAndHours = async (req, res, next) => {
   WorkingDaysAndHours.find({})
     .then((workingDaysAndHours) =>
@@ -36,7 +35,6 @@ const getWorkingDaysAndHours = async (req, res, next) => {
     .catch((err) => res.status(400).json('Error: ' + err))
 }
 
-// noinspection JSUnusedLocalSymbols
 const editWorkingDaysAndHours = async (req, res, next) => {
   const {workingDaysAndHours, id} = req.body
   const query = {'_id': id}
@@ -46,10 +44,8 @@ const editWorkingDaysAndHours = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const deleteWorkingDaysAndHours = async (req, res, next) => {
   const {id} = req.body
-  // noinspection JSUnusedLocalSymbols
   WorkingDaysAndHours.findByIdAndDelete((id), {}, (err, item) => {
     if (err) return res.status(500).send(err)
   })

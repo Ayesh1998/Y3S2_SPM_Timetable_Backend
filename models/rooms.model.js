@@ -70,7 +70,6 @@ const RoomsSchema = new Schema({
   collection: 'Rooms'
 })
 
-// noinspection JSUnresolvedFunction
 RoomsSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Rooms', RoomsSchema)

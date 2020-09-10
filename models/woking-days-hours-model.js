@@ -36,7 +36,6 @@ const WorkingDaysAndHoursSchema = new Schema({
   collection: 'WorkingDaysAndHours'
 })
 
-// noinspection JSUnresolvedFunction
 WorkingDaysAndHoursSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('WorkingDaysAndHours', WorkingDaysAndHoursSchema)

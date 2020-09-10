@@ -24,7 +24,6 @@ const createTags = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const getTags = async (req, res, next) => {
   Tags.find({})
     .then((tags) =>
@@ -33,7 +32,6 @@ const getTags = async (req, res, next) => {
     .catch((err) => res.status(400).json('Error: ' + err))
 }
 
-// noinspection JSUnusedLocalSymbols
 const editTags = async (req, res, next) => {
   const {tags, id} = req.body
   const query = {'_id': id}
@@ -43,10 +41,8 @@ const editTags = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const deleteTags = async (req, res, next) => {
   const {id} = req.body
-  // noinspection JSUnusedLocalSymbols
   Tags.findByIdAndDelete((id), {}, (err, item) => {
     if (err) return res.status(500).send(err)
   })

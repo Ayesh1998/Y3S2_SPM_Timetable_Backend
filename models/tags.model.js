@@ -29,7 +29,6 @@ const TagsSchema = new Schema({
   collection: 'Tags'
 })
 
-// noinspection JSUnresolvedFunction
 TagsSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Tags', TagsSchema)

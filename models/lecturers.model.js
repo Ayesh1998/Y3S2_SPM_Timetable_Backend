@@ -65,7 +65,6 @@ const LecturersSchema = new Schema({
   collection: 'Lecturers'
 })
 
-// noinspection JSUnresolvedFunction
 LecturersSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Lecturers', LecturersSchema)

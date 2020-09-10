@@ -24,7 +24,6 @@ const createPrograms = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const getPrograms = async (req, res, next) => {
   Programs.find({})
     .then((programs) =>
@@ -33,7 +32,6 @@ const getPrograms = async (req, res, next) => {
     .catch((err) => res.status(400).json('Error: ' + err))
 }
 
-// noinspection JSUnusedLocalSymbols
 const editPrograms = async (req, res, next) => {
   const {programs, id} = req.body
   const query = {'_id': id}
@@ -43,10 +41,8 @@ const editPrograms = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const deletePrograms = async (req, res, next) => {
   const {id} = req.body
-  // noinspection JSUnusedLocalSymbols
   Programs.findByIdAndDelete((id), {}, (err, item) => {
     if (err) return res.status(500).send(err)
   })

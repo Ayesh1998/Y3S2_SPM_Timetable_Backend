@@ -3,6 +3,7 @@ const SessionModel = require('../models/sessions.model')
 
 const addSession = async (req, res, next) => {
   const {
+    sessionId,
     lecturers,
     subject,
     subjectCode,
@@ -24,6 +25,7 @@ const addSession = async (req, res, next) => {
   } = req.body
 
   const newSession = new SessionModel({
+    sessionId,
     lecturers,
     subject,
     subjectCode,

@@ -30,7 +30,6 @@ const createSubGroups = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const getSubGroups = async (req, res, next) => {
   SubGroups.find({})
     .then((subGroups) =>
@@ -39,7 +38,6 @@ const getSubGroups = async (req, res, next) => {
     .catch((err) => res.status(400).json('Error: ' + err))
 }
 
-// noinspection JSUnusedLocalSymbols
 const editSubGroups = async (req, res, next) => {
   const {subGroups, id} = req.body
   const query = {'_id': id}
@@ -49,19 +47,15 @@ const editSubGroups = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const deleteSubGroups = async (req, res, next) => {
   const {id} = req.body
-  // noinspection JSUnusedLocalSymbols
   SubGroups.findByIdAndDelete((id), {}, (err, item) => {
     if (err) return res.status(500).send(err)
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const deleteSubGroupsWithSubId = async (req, res, next) => {
   const {subid} = req.body
-  // noinspection JSUnusedLocalSymbols
   SubGroups.findOneAndDelete({subGroupId:subid}, {}, (err, item) => {
     
     if (err) return res.status(500).send(err)
@@ -71,7 +65,6 @@ const deleteSubGroupsWithSubId = async (req, res, next) => {
 const deleteAllSubGroupsWithGroId = async (req, res, next) => {
   
   const {groupid} = req.body
-  // noinspection JSUnusedLocalSymbols
   let subgroups = await SubGroups.find({
     groupId:groupid
   })
