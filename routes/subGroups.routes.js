@@ -8,7 +8,7 @@ router.get('/getSubGroups', SubGroupsController.getSubGroups)
 router.get('/getSubGroups/:id', SubGroupsController.getSubGroup)
 router.put('/editSubGroups', SubGroupsController.editSubGroups)
 router.delete('/deleteSubGroups', SubGroupsController.deleteSubGroups)
-router.delete('/ deleteAllSubGroupsWithGroId', SubGroupsController. deleteAllSubGroupsWithGroId)
+router.delete('/ deleteAllSubGroupsWithGroId', SubGroupsController.deleteAllSubGroupsWithGroId)
 router.delete('/deleteSubGroupsWithSubId', SubGroupsController.deleteSubGroupsWithSubId)
 
 module.exports = router

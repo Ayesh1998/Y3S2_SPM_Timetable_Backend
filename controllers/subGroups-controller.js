@@ -56,21 +56,21 @@ const deleteSubGroups = async (req, res, next) => {
 
 const deleteSubGroupsWithSubId = async (req, res, next) => {
   const {subid} = req.body
-  SubGroups.findOneAndDelete({subGroupId:subid}, {}, (err, item) => {
-    
+  SubGroups.findOneAndDelete({subGroupId: subid}, {}, (err, item) => {
+
     if (err) return res.status(500).send(err)
   })
 }
 
 const deleteAllSubGroupsWithGroId = async (req, res, next) => {
-  
+
   const {groupid} = req.body
   let subgroups = await SubGroups.find({
-    groupId:groupid
+    groupId: groupid
   })
-  
-  for(let i=0; i<subgroups.length; i++) {
-    
+
+  for (let i = 0; i < subgroups.length; i++) {
+
     SubGroups.findByIdAndDelete((subgroups[i]._id), {}, (err, item) => {
       if (err) return res.status(500).send(err)
     })
@@ -117,5 +117,5 @@ exports.editSubGroups = editSubGroups
 exports.getSubGroups = getSubGroups
 exports.getSubGroup = getSubGroup
 exports.deleteSubGroups = deleteSubGroups
-exports. deleteAllSubGroupsWithGroId =  deleteAllSubGroupsWithGroId
+exports.deleteAllSubGroupsWithGroId = deleteAllSubGroupsWithGroId
 exports.deleteSubGroupsWithSubId = deleteSubGroupsWithSubId
