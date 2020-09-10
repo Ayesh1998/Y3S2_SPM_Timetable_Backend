@@ -3,47 +3,47 @@ const SessionModel = require('../models/sessions.model')
 
 const addSession = async (req, res, next) => {
   const {
-    sessionId,
+    // sessionId,
     lecturers,
     subject,
     subjectCode,
     tag,
-    groupId,
-    subGroupId,
+    // groupId,
+    // subGroupId,
     studentCount,
     duration,
-    day,
-    startTime,
-    endTime,
-    isParallel,
-    parallelId,
-    isConsecutive,
-    consecutiveId,
-    isSameRoom,
-    room,
-    possibleRooms
+    // day,
+    // startTime,
+    // endTime,
+    // isParallel,
+    // parallelId,
+    // isConsecutive,
+    // consecutiveId,
+    // isSameRoom,
+    // room,
+    // possibleRooms
   } = req.body
 
   const newSession = new SessionModel({
-    sessionId,
+    // sessionId,
     lecturers,
     subject,
     subjectCode,
     tag,
-    groupId,
-    subGroupId,
+    // groupId,
+    // subGroupId,
     studentCount,
     duration,
-    day,
-    startTime,
-    endTime,
-    isParallel,
-    parallelId,
-    isConsecutive,
-    consecutiveId,
-    isSameRoom,
-    room,
-    possibleRooms
+    // day,
+    // startTime,
+    // endTime,
+    // isParallel,
+    // parallelId,
+    // isConsecutive,
+    // consecutiveId,
+    // isSameRoom,
+    // room,
+    // possibleRooms
   })
 
   try {

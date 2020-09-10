@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const autoIncrement = require('mongoose-auto-increment')
 const uniqueValidator = require('mongoose-unique-validator')
 
 const Schema = mongoose.Schema
@@ -16,7 +17,7 @@ const days = [
 const SessionsSchema = new Schema({
   sessionId: {
     type: Number,
-    required: true,
+    required: false,
     unique: true,
     trim: true
   },
@@ -142,5 +143,14 @@ const SessionsSchema = new Schema({
 })
 
 SessionsSchema.plugin(uniqueValidator)
+
+autoIncrement.initialize(mongoose.connection);
+
+SessionsSchema.plugin(autoIncrement.plugin, {
+  model: 'Sessions',
+  field: 'sessionId',
+  startAt: 1000,
+  incrementBy: 1
+})
 
 module.exports = mongoose.model('Sessions', SessionsSchema)
