@@ -22,40 +22,39 @@ const SessionsSchema = new Schema({
     trim: true
   },
   lecturers: [{
-    lecturer: {
-      type: String,
+    lecturerRef: {
+      type: Schema.Types.ObjectId,
+      ref: 'Lecturers',
       required: true,
       unique: false,
       trim: true
     }
   }],
-  subject: {
-    type: String,
+  subjectRef: {
+    type: Schema.Types.ObjectId,
+    ref: 'Subjects',
     required: true,
     unique: false,
     trim: true
   },
-  subjectCode: {
-    type: String,
-    required: true,
-    unique: false,
-    trim: true
-  },
-  tag: {
-    type: String,
+  tagRef: {
+    type: Schema.Types.ObjectId,
+    ref: 'Tags',
     required: true,
     unique: false,
     trim: true
   },
   groupId: {
-    type: String,
-    required: false,
+    type: Schema.Types.ObjectId,
+    ref: 'Groups',
+    required: true,
     unique: false,
     trim: true
   },
   subGroupId: {
-    type: String,
-    required: false,
+    type: Schema.Types.ObjectId,
+    ref: 'SubGroups',
+    required: true,
     unique: false,
     trim: true
   },
@@ -123,15 +122,17 @@ const SessionsSchema = new Schema({
     unique: false,
     trim: true
   },
-  room: {
-    type: String,
+  roomRef: {
+    type: Schema.Types.ObjectId,
+    ref: 'Rooms',
     required: false,
     unique: false,
     trim: true
   },
   possibleRooms: [{
-    roomName: {
-      type: String,
+    roomRef: {
+      type: Schema.Types.ObjectId,
+      ref: 'Rooms',
       required: false,
       unique: false,
       trim: true
@@ -144,7 +145,7 @@ const SessionsSchema = new Schema({
 
 SessionsSchema.plugin(uniqueValidator)
 
-autoIncrement.initialize(mongoose.connection);
+autoIncrement.initialize(mongoose.connection)
 
 SessionsSchema.plugin(autoIncrement.plugin, {
   model: 'Sessions',

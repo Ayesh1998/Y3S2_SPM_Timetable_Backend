@@ -61,8 +61,9 @@ const GroupsSchema = new Schema({
     trim: true
   },
   possibleRooms: [{
-    roomName: {
-      type: String,
+    roomRef: {
+      type: Schema.Types.ObjectId,
+      ref: 'Rooms',
       required: false,
       unique: false,
       trim: true
