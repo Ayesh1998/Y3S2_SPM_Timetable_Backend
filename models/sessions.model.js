@@ -44,14 +44,14 @@ const SessionsSchema = new Schema({
     unique: false,
     trim: true
   },
-  groupId: {
+  groupRef: {
     type: Schema.Types.ObjectId,
     ref: 'Groups',
     required: true,
     unique: false,
     trim: true
   },
-  subGroupId: {
+  subGroupRef: {
     type: Schema.Types.ObjectId,
     ref: 'SubGroups',
     required: true,
