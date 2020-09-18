@@ -47,14 +47,16 @@ const SessionsSchema = new Schema({
   groupRef: {
     type: Schema.Types.ObjectId,
     ref: 'Groups',
-    required: true,
+    required: false,
+    default: null,
     unique: false,
     trim: true
   },
   subGroupRef: {
     type: Schema.Types.ObjectId,
     ref: 'SubGroups',
-    required: true,
+    required: false,
+    default: null,
     unique: false,
     trim: true
   },
@@ -91,34 +93,36 @@ const SessionsSchema = new Schema({
   },
   isParallel: {
     type: Boolean,
-    default: false,
     required: false,
+    default: false,
     unique: false,
     trim: true
   },
   parallelId: {
     type: Number,
     required: false,
+    default: null,
     unique: false,
     trim: true
   },
   isConsecutive: {
     type: Boolean,
-    default: false,
     required: false,
+    default: false,
     unique: false,
     trim: true
   },
   consecutiveId: {
     type: Number,
     required: false,
+    default: null,
     unique: false,
     trim: true
   },
   isSameRoom: {
     type: Boolean,
-    default: false,
     required: false,
+    default: false,
     unique: false,
     trim: true
   },
@@ -126,6 +130,7 @@ const SessionsSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Rooms',
     required: false,
+    default: null,
     unique: false,
     trim: true
   },
