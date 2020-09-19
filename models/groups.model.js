@@ -43,13 +43,13 @@ const GroupsSchema = new Schema({
   subGroups: [{
     subGroup: {
       type: Number,
-      required: true,
+      required: false,
       unique: false,
       trim: true
     },
     subGroupId: {
       type: String,
-      required: true,
+      required: false,
       unique: true,
       trim: true
     }
@@ -60,12 +60,20 @@ const GroupsSchema = new Schema({
     unique: false,
     trim: true
   },
+  possibleRooms: [{
+    roomRef: {
+      type: Schema.Types.ObjectId,
+      ref: 'Rooms',
+      required: false,
+      unique: false,
+      trim: true
+    }
+  }]
 }, {
   timestamps: true,
   collection: 'Groups'
 })
 
-// noinspection JSUnresolvedFunction
 GroupsSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Groups', GroupsSchema)

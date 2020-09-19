@@ -1,5 +1,6 @@
 const HttpErrorsModel = require('../models/http-errors')
 const BuildingModel = require('../models/buildings.model')
+const RoomModel = require('../models/rooms.model')
 
 const addBuilding = async (req, res, next) => {
   let existingBuilding
@@ -46,6 +47,7 @@ const addBuilding = async (req, res, next) => {
 const updateBuilding = async (req, res, next) => {
   let building
   let existingBuilding
+  let rooms
 
   const {
     id
@@ -58,6 +60,15 @@ const updateBuilding = async (req, res, next) => {
 
   try {
     building = await BuildingModel.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  try {
+    rooms = await RoomModel.find({
+      buildingName: building.buildingName
+    })
   } catch (error) {
     console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
@@ -90,6 +101,16 @@ const updateBuilding = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
+  for (let i = 0; i < rooms.length; i++) {
+    rooms[i].buildingName = buildingName
+    try {
+      await rooms[i].save()
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  }
+
   res.status(200).send({
     message: 'Building updated successfully!'
   })
@@ -97,6 +118,7 @@ const updateBuilding = async (req, res, next) => {
 
 const deleteBuilding = async (req, res, next) => {
   let building
+  let rooms
 
   const {
     id
@@ -104,6 +126,29 @@ const deleteBuilding = async (req, res, next) => {
 
   try {
     building = await BuildingModel.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  try {
+    rooms = await RoomModel.findOne({
+      buildingName: building.buildingName
+    })
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  if (rooms) {
+    res.json({
+      roomsExist: true,
+      message: 'Rooms are defined under this building name, please delete those rooms first and try again.'
+    })
+    return next(new HttpErrorsModel('Rooms are defined under this building name, please delete those rooms first and try again.', 409))
+  }
+
+  try {
     await building.remove()
   } catch (error) {
     console.log(error)

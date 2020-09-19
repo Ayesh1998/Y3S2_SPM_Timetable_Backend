@@ -21,7 +21,6 @@ const ProgramSchema = new Schema({
   collection: 'Programs'
 })
 
-// noinspection JSUnresolvedFunction
 ProgramSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Programs', ProgramSchema)

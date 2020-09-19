@@ -10,13 +10,12 @@ const GroupNumSchema = new Schema({
     unique: true,
     trim: true
   },
-  
+
 }, {
   timestamps: true,
   collection: 'GroupNum'
 })
 
-// noinspection JSUnresolvedFunction
 GroupNumSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('GroupNum', GroupNumSchema)

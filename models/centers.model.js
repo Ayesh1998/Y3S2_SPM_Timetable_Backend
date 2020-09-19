@@ -15,7 +15,6 @@ const CentersSchema = new Schema({
   collection: 'Centers'
 })
 
-// noinspection JSUnresolvedFunction
 CentersSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Centers', CentersSchema)

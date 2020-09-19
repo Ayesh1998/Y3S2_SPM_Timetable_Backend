@@ -20,7 +20,7 @@ const addUnavailableTimes = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
-  unavailableTimes.push(...room.unavailability, ...unavailability)
+  unavailableTimes.push(...room.unavailability, unavailability)
   room.unavailability = unavailableTimes
 
   try {

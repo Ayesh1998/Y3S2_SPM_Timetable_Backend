@@ -2,7 +2,7 @@ const HttpError = require('../models/http-errors')
 const GroupNums = require('../models/groupNums.model')
 
 const createGroupNums = async (req, res, next) => {
-  const { groupNum} = req.body
+  const {groupNum} = req.body
 
   const GroupNumsItem = new GroupNums({
     groupNum
@@ -23,7 +23,6 @@ const createGroupNums = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const getGroupNums = async (req, res, next) => {
   GroupNums.find({})
     .then((groupNums) =>
@@ -32,7 +31,6 @@ const getGroupNums = async (req, res, next) => {
     .catch((err) => res.status(400).json('Error: ' + err))
 }
 
-// noinspection JSUnusedLocalSymbols
 const editGroupNums = async (req, res, next) => {
   const {groupNums, id} = req.body
   const query = {'_id': id}
@@ -42,31 +40,29 @@ const editGroupNums = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const deleteGroupNums = async (req, res, next) => {
   const {id} = req.body
-  // noinspection JSUnusedLocalSymbols
   GroupNums.findByIdAndDelete((id), {}, (err, item) => {
     if (err) return res.status(500).send(err)
   })
 }
 
 const getGroupNum = async (req, res, next) => {
-    let groupNum
-  
-    const {
-      id
-    } = req.params
-  
-    try {
-      groupNum = await GroupNums.findById(id)
-    } catch (error) {
-      console.log(error)
-      return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
-    }
-  
-    res.status(200).send(groupNum)
+  let groupNum
+
+  const {
+    id
+  } = req.params
+
+  try {
+    groupNum = await GroupNums.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
   }
+
+  res.status(200).send(groupNum)
+}
 
 exports.createGroupNums = createGroupNums
 exports.editGroupNums = editGroupNums

@@ -51,13 +51,21 @@ const SubGroupsSchema = new Schema({
     required: true,
     unique: true,
     trim: true
-  }
+  },
+  possibleRooms: [{
+    roomRef: {
+      type: Schema.Types.ObjectId,
+      ref: 'Rooms',
+      required: false,
+      unique: false,
+      trim: true
+    }
+  }]
 }, {
   timestamps: true,
   collection: 'SubGroups'
 })
 
-// noinspection JSUnresolvedFunction
 SubGroupsSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('SubGroups', SubGroupsSchema)

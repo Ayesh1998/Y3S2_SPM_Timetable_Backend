@@ -2,7 +2,7 @@ const HttpError = require('../models/http-errors')
 const SubGroups = require('../models/sub-groups.model')
 
 const createSubGroups = async (req, res, next) => {
-  const {academicYear,academicSemester,academicYearAndSemester,programme, group,groupId,subGroup,subGroupId} = req.body
+  const {academicYear, academicSemester, academicYearAndSemester, programme, group, groupId, subGroup, subGroupId} = req.body
 
   const SubGroupsItem = new SubGroups({
     academicYear,
@@ -30,7 +30,6 @@ const createSubGroups = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const getSubGroups = async (req, res, next) => {
   SubGroups.find({})
     .then((subGroups) =>
@@ -39,7 +38,6 @@ const getSubGroups = async (req, res, next) => {
     .catch((err) => res.status(400).json('Error: ' + err))
 }
 
-// noinspection JSUnusedLocalSymbols
 const editSubGroups = async (req, res, next) => {
   const {subGroups, id} = req.body
   const query = {'_id': id}
@@ -49,35 +47,75 @@ const editSubGroups = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const deleteSubGroups = async (req, res, next) => {
   const {id} = req.body
-  // noinspection JSUnusedLocalSymbols
   SubGroups.findByIdAndDelete((id), {}, (err, item) => {
     if (err) return res.status(500).send(err)
   })
 }
 
-const getSubGroup = async (req, res, next) => {
-    let subGroup
-  
-    const {
-      id
-    } = req.params
-  
-    try {
-      subGroup = await SubGroups.findById(id)
-    } catch (error) {
-      console.log(error)
-      return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
-    }
-  
-    res.status(200).send(subGroup)
+const deleteSubGroupsWithSubId = async (req, res, next) => {
+  const {subid} = req.body
+  SubGroups.findOneAndDelete({subGroupId: subid}, {}, (err, item) => {
+
+    if (err) return res.status(500).send(err)
+  })
+}
+
+const deleteAllSubGroupsWithGroId = async (req, res, next) => {
+
+  const {groupid} = req.body
+  let subgroups = await SubGroups.find({
+    groupId: groupid
+  })
+
+  for (let i = 0; i < subgroups.length; i++) {
+
+    SubGroups.findByIdAndDelete((subgroups[i]._id), {}, (err, item) => {
+      if (err) return res.status(500).send(err)
+    })
   }
+}
+
+// const deleteSubGroups1 = async (req, res, next) => {
+//   console.log('-------------------')
+//   const {groupid} = req.body
+//   // noinspection JSUnusedLocalSymbols
+//   let subgroups = await SubGroups.find({
+//     groupId:groupid
+//   })
+//   console.log(groupid)
+//   console.log(subgroups)
+//   for(let i=0; i<subgroups.length; i++) {
+//     console.log('**********************')
+//    await subgroups[i].remove
+//   }
+//   res.status(200).send({
+//     message:'sub group deleted successfuly'
+//   })
+// }
+
+const getSubGroup = async (req, res, next) => {
+  let subGroup
+
+  const {
+    id
+  } = req.params
+
+  try {
+    subGroup = await SubGroups.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send(subGroup)
+}
 
 exports.createSubGroups = createSubGroups
 exports.editSubGroups = editSubGroups
 exports.getSubGroups = getSubGroups
 exports.getSubGroup = getSubGroup
 exports.deleteSubGroups = deleteSubGroups
-
+exports.deleteAllSubGroupsWithGroId = deleteAllSubGroupsWithGroId
+exports.deleteSubGroupsWithSubId = deleteSubGroupsWithSubId

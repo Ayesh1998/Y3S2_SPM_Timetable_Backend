@@ -21,7 +21,6 @@ const BuildingsSchema = new Schema({
   collection: 'Buildings'
 })
 
-// noinspection JSUnresolvedFunction
 BuildingsSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Buildings', BuildingsSchema)

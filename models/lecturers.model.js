@@ -40,6 +40,13 @@ const LecturersSchema = new Schema({
     unique: false,
     trim: true
   },
+  buildingRef: {
+    type: Schema.Types.ObjectId,
+    ref: 'Buildings',
+    required: false,
+    unique: false,
+    trim: true
+  },
   level: {
     type: Number,
     required: true,
@@ -51,13 +58,21 @@ const LecturersSchema = new Schema({
     required: true,
     unique: true,
     trim: true
-  }
+  },
+  possibleRooms: [{
+    roomRef: {
+      type: Schema.Types.ObjectId,
+      ref: 'Rooms',
+      required: false,
+      unique: false,
+      trim: true
+    }
+  }]
 }, {
   timestamps: true,
   collection: 'Lecturers'
 })
 
-// noinspection JSUnresolvedFunction
 LecturersSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('Lecturers', LecturersSchema)

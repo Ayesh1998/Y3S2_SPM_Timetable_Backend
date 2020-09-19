@@ -3,17 +3,19 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 const Schema = mongoose.Schema
 
-const TagsSchema = new Schema({
-  name: {
-    type: String,
+const SubjectTagsSchema = new Schema({
+  subjectRef: {
+    type: Schema.Types.ObjectId,
+    ref: 'Subjects',
     required: true,
-    unique: true,
+    unique: false,
     trim: true
   },
-  tagToken: {
-    type: String,
+  tagRef: {
+    type: Schema.Types.ObjectId,
+    ref: 'Tags',
     required: true,
-    unique: true,
+    unique: false,
     trim: true
   },
   possibleRooms: [{
@@ -27,9 +29,9 @@ const TagsSchema = new Schema({
   }]
 }, {
   timestamps: true,
-  collection: 'Tags'
+  collection: 'SubjectTags'
 })
 
-TagsSchema.plugin(uniqueValidator)
+SubjectTagsSchema.plugin(uniqueValidator)
 
-module.exports = mongoose.model('Tags', TagsSchema)
+module.exports = mongoose.model('SubjectTags', SubjectTagsSchema)

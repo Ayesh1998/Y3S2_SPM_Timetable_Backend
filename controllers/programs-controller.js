@@ -2,9 +2,9 @@ const HttpError = require('../models/http-errors')
 const Programs = require('../models/programs.model')
 
 const createPrograms = async (req, res, next) => {
-  const {name,programToken} = req.body
+  const {name, programToken} = req.body
 
-  const ProgramsItem = new Tags({
+  const ProgramsItem = new Programs({
     name,
     programToken
   })
@@ -24,7 +24,6 @@ const createPrograms = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const getPrograms = async (req, res, next) => {
   Programs.find({})
     .then((programs) =>
@@ -33,7 +32,6 @@ const getPrograms = async (req, res, next) => {
     .catch((err) => res.status(400).json('Error: ' + err))
 }
 
-// noinspection JSUnusedLocalSymbols
 const editPrograms = async (req, res, next) => {
   const {programs, id} = req.body
   const query = {'_id': id}
@@ -43,31 +41,29 @@ const editPrograms = async (req, res, next) => {
   })
 }
 
-// noinspection JSUnusedLocalSymbols
 const deletePrograms = async (req, res, next) => {
   const {id} = req.body
-  // noinspection JSUnusedLocalSymbols
   Programs.findByIdAndDelete((id), {}, (err, item) => {
     if (err) return res.status(500).send(err)
   })
 }
 
 const getProgram = async (req, res, next) => {
-    let program
-  
-    const {
-      id
-    } = req.params
-  
-    try {
-      program = await Programs.findById(id)
-    } catch (error) {
-      console.log(error)
-      return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
-    }
-  
-    res.status(200).send(program)
+  let program
+
+  const {
+    id
+  } = req.params
+
+  try {
+    program = await Programs.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpError('Unexpected internal server error occurred, please try again later.', 500))
   }
+
+  res.status(200).send(program)
+}
 
 exports.createPrograms = createPrograms
 exports.editPrograms = editPrograms
