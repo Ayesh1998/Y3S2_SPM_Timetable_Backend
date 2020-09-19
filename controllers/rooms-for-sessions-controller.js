@@ -74,6 +74,41 @@ const getSessionList = async (req, res, next) => {
   res.status(200).send(sessionList)
 }
 
+const addRoomForSession = async (req, res, next) => {
+  let session
+
+  const {
+    sessionId,
+    room
+  } = req.body
+
+  try {
+    session = await SessionModel.findOne({
+      sessionId: sessionId
+    })
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  if (room === "")
+    session.roomRef = null
+  else
+    session.roomRef = room
+
+  try {
+    await session.save()
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send({
+    message: 'Session updated successfully!'
+  })
+}
+
 exports.addSession = addSession
 exports.getSession = getSession
 exports.getSessionList = getSessionList
+exports.addRoomForSession = addRoomForSession
