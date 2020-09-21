@@ -5,6 +5,7 @@ const addSession = async (req, res, next) => {
   const {
     lecturers,
     subjectRef,
+    subjectCodeRef,
     tagRef,
     groupRef,
     subGroupRef,
@@ -20,6 +21,7 @@ const addSession = async (req, res, next) => {
   const newSession = new SessionModel({
     lecturers,
     subjectRef,
+    subjectCodeRef,
     tagRef,
     groupRef,
     subGroupRef,

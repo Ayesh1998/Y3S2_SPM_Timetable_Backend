@@ -23,38 +23,39 @@ const SessionsSchema = new Schema({
   },
   lecturers: [{
     lecturerRef: {
-      type: Schema.Types.ObjectId,
-      ref: 'Lecturers',
+      type: String,
       required: true,
       unique: false,
       trim: true
     }
   }],
   subjectRef: {
-    type: Schema.Types.ObjectId,
-    ref: 'Subjects',
+    type: String,
+    required: true,
+    unique: false,
+    trim: true
+  },
+  subjectCodeRef: {
+    type: String,
     required: true,
     unique: false,
     trim: true
   },
   tagRef: {
-    type: Schema.Types.ObjectId,
-    ref: 'Tags',
+    type: String,
     required: true,
     unique: false,
     trim: true
   },
   groupRef: {
-    type: Schema.Types.ObjectId,
-    ref: 'Groups',
+    type: String,
     required: false,
     default: null,
     unique: false,
     trim: true
   },
   subGroupRef: {
-    type: Schema.Types.ObjectId,
-    ref: 'SubGroups',
+    type: String,
     required: false,
     default: null,
     unique: false,
@@ -127,8 +128,7 @@ const SessionsSchema = new Schema({
     trim: true
   },
   roomRef: {
-    type: Schema.Types.ObjectId,
-    ref: 'Rooms',
+    type: String,
     required: false,
     default: null,
     unique: false,
@@ -136,8 +136,7 @@ const SessionsSchema = new Schema({
   },
   possibleRooms: [{
     roomRef: {
-      type: Schema.Types.ObjectId,
-      ref: 'Rooms',
+      type: String,
       required: false,
       unique: false,
       trim: true

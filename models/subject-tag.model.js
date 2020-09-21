@@ -5,23 +5,20 @@ const Schema = mongoose.Schema
 
 const SubjectTagsSchema = new Schema({
   subjectRef: {
-    type: Schema.Types.ObjectId,
-    ref: 'Subjects',
+    type: String,
     required: true,
     unique: false,
     trim: true
   },
   tagRef: {
-    type: Schema.Types.ObjectId,
-    ref: 'Tags',
+    type: String,
     required: true,
     unique: false,
     trim: true
   },
   possibleRooms: [{
     roomRef: {
-      type: Schema.Types.ObjectId,
-      ref: 'Rooms',
+      type: String,
       required: false,
       unique: false,
       trim: true

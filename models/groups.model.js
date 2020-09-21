@@ -50,7 +50,7 @@ const GroupsSchema = new Schema({
     subGroupId: {
       type: String,
       required: false,
-      unique: true,
+      unique: false,
       trim: true
     }
   }],
@@ -62,8 +62,7 @@ const GroupsSchema = new Schema({
   },
   possibleRooms: [{
     roomRef: {
-      type: Schema.Types.ObjectId,
-      ref: 'Rooms',
+      type: String,
       required: false,
       unique: false,
       trim: true

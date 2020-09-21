@@ -40,13 +40,6 @@ const LecturersSchema = new Schema({
     unique: false,
     trim: true
   },
-  buildingRef: {
-    type: Schema.Types.ObjectId,
-    ref: 'Buildings',
-    required: false,
-    unique: false,
-    trim: true
-  },
   level: {
     type: Number,
     required: true,
@@ -61,8 +54,7 @@ const LecturersSchema = new Schema({
   },
   possibleRooms: [{
     roomRef: {
-      type: Schema.Types.ObjectId,
-      ref: 'Rooms',
+      type: String,
       required: false,
       unique: false,
       trim: true
