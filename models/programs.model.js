@@ -15,7 +15,7 @@ const ProgramSchema = new Schema({
     required: true,
     unique: true,
     trim: true
-  },
+  }
 }, {
   timestamps: true,
   collection: 'Programs'

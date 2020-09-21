@@ -18,8 +18,7 @@ const TagsSchema = new Schema({
   },
   possibleRooms: [{
     roomRef: {
-      type: Schema.Types.ObjectId,
-      ref: 'Rooms',
+      type: String,
       required: false,
       unique: false,
       trim: true
