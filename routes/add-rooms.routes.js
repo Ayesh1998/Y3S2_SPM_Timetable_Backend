@@ -16,5 +16,10 @@ router.post('/addRoomsToSubjectAndTag', AddRoomsController.addRoomsToSubjectAndT
 router.post('/addRoomsToLecturer', AddRoomsController.addRoomsToLecturer)
 router.post('/addRoomsToGroup', AddRoomsController.addRoomsToGroup)
 router.post('/addRoomsToSubGroup', AddRoomsController.addRoomsToSubGroup)
+router.post('/getPossibleRoomsByTag', AddRoomsController.getPossibleRoomsByTag)
+router.post('/getPossibleRoomsBySubjectAndTag', AddRoomsController.getPossibleRoomsBySubjectAndTag)
+router.post('/getPossibleRoomsByLecturer', AddRoomsController.getPossibleRoomsByLecturer)
+router.post('/getPossibleRoomsByGroup', AddRoomsController.getPossibleRoomsByGroup)
+router.post('/getPossibleRoomsBySubGroup', AddRoomsController.getPossibleRoomsBySubGroup)
 
 module.exports = router

@@ -285,6 +285,153 @@ const addRoomsToSubGroup = async (req, res, next) => {
   })
 }
 
+const getPossibleRoomsByTag = async (req, res, next) => {
+  let tagObject
+  let possibleRooms = []
+  let possibleRoomsObject
+
+  const {
+    tag
+  } = req.body
+
+  try {
+    tagObject = await TagModel.findOne({
+      name: tag
+    })
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  possibleRoomsObject = tagObject.possibleRooms
+
+  for (let i = 0; i < possibleRoomsObject.length; i++)
+    possibleRooms = [...possibleRooms, possibleRoomsObject[i].roomRef]
+
+  res.status(200).send({
+    possibleRooms,
+    possibleRoomsObject
+  })
+}
+
+const getPossibleRoomsBySubjectAndTag = async (req, res, next) => {
+  let subjectTagObject
+  let possibleRooms = []
+  let possibleRoomsObject
+
+  const {
+    subject,
+    tag
+  } = req.body
+
+  try {
+    subjectTagObject = await SubjectTagModel.findOne({
+      subjectRef: subject,
+      tagRef: tag
+    })
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  possibleRoomsObject = subjectTagObject.possibleRooms
+
+  for (let i = 0; i < possibleRoomsObject.length; i++)
+    possibleRooms = [...possibleRooms, possibleRoomsObject[i].roomRef]
+
+  res.status(200).send({
+    possibleRooms,
+    possibleRoomsObject
+  })
+}
+
+const getPossibleRoomsByLecturer = async (req, res, next) => {
+  let lecturerObject
+  let possibleRooms = []
+  let possibleRoomsObject
+
+  const {
+    lecturer
+  } = req.body
+
+  try {
+    lecturerObject = await LecturerModel.findOne({
+      lecturerName: lecturer
+    })
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  possibleRoomsObject = lecturerObject.possibleRooms
+
+  for (let i = 0; i < possibleRoomsObject.length; i++)
+    possibleRooms = [...possibleRooms, possibleRoomsObject[i].roomRef]
+
+  res.status(200).send({
+    possibleRooms,
+    possibleRoomsObject
+  })
+}
+
+const getPossibleRoomsByGroup = async (req, res, next) => {
+  let groupObject
+  let possibleRooms = []
+  let possibleRoomsObject
+
+  const {
+    group
+  } = req.body
+
+  try {
+    groupObject = await GroupModel.findOne({
+      groupId: group
+    })
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  possibleRoomsObject = groupObject.possibleRooms
+
+  for (let i = 0; i < possibleRoomsObject.length; i++)
+    possibleRooms = [...possibleRooms, possibleRoomsObject[i].roomRef]
+
+  res.status(200).send({
+    possibleRooms,
+    possibleRoomsObject
+  })
+}
+
+const getPossibleRoomsBySubGroup = async (req, res, next) => {
+  let subGroupObject
+  let possibleRooms = []
+  let possibleRoomsObject
+
+  const {
+    subGroup
+  } = req.body
+
+  try {
+    subGroupObject = await SubGroupModel.findOne({
+      subGroupId: subGroup
+    })
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  possibleRoomsObject = subGroupObject.possibleRooms
+
+  for (let i = 0; i < possibleRoomsObject.length; i++)
+    possibleRooms = [...possibleRooms, possibleRoomsObject[i].roomRef]
+
+  res.status(200).send({
+    possibleRooms,
+    possibleRoomsObject
+  })
+}
+
 exports.getRoomList = getRoomList
 exports.getBuildingList = getBuildingList
 exports.getTagList = getTagList
@@ -298,3 +445,8 @@ exports.addRoomsToSubjectAndTag = addRoomsToSubjectAndTag
 exports.addRoomsToLecturer = addRoomsToLecturer
 exports.addRoomsToGroup = addRoomsToGroup
 exports.addRoomsToSubGroup = addRoomsToSubGroup
+exports.getPossibleRoomsByTag = getPossibleRoomsByTag
+exports.getPossibleRoomsBySubjectAndTag = getPossibleRoomsBySubjectAndTag
+exports.getPossibleRoomsByLecturer = getPossibleRoomsByLecturer
+exports.getPossibleRoomsByGroup = getPossibleRoomsByGroup
+exports.getPossibleRoomsBySubGroup = getPossibleRoomsBySubGroup
