@@ -288,7 +288,7 @@ const addRoomsToSubGroup = async (req, res, next) => {
 const getPossibleRoomsByTag = async (req, res, next) => {
   let tagObject
   let possibleRooms = []
-  let possibleRoomsObject
+  let possibleRoomsObject = []
 
   const {
     tag
@@ -303,7 +303,8 @@ const getPossibleRoomsByTag = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
-  possibleRoomsObject = tagObject.possibleRooms
+  if (tagObject !== null)
+    possibleRoomsObject = tagObject.possibleRooms
 
   for (let i = 0; i < possibleRoomsObject.length; i++)
     possibleRooms = [...possibleRooms, possibleRoomsObject[i].roomRef]
@@ -317,7 +318,7 @@ const getPossibleRoomsByTag = async (req, res, next) => {
 const getPossibleRoomsBySubjectAndTag = async (req, res, next) => {
   let subjectTagObject
   let possibleRooms = []
-  let possibleRoomsObject
+  let possibleRoomsObject = []
 
   const {
     subject,
@@ -334,7 +335,8 @@ const getPossibleRoomsBySubjectAndTag = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
-  possibleRoomsObject = subjectTagObject.possibleRooms
+  if (subjectTagObject !== null)
+    possibleRoomsObject = subjectTagObject.possibleRooms
 
   for (let i = 0; i < possibleRoomsObject.length; i++)
     possibleRooms = [...possibleRooms, possibleRoomsObject[i].roomRef]
@@ -348,7 +350,7 @@ const getPossibleRoomsBySubjectAndTag = async (req, res, next) => {
 const getPossibleRoomsByLecturer = async (req, res, next) => {
   let lecturerObject
   let possibleRooms = []
-  let possibleRoomsObject
+  let possibleRoomsObject = []
 
   const {
     lecturer
@@ -363,7 +365,8 @@ const getPossibleRoomsByLecturer = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
-  possibleRoomsObject = lecturerObject.possibleRooms
+  if (lecturerObject !== null)
+    possibleRoomsObject = lecturerObject.possibleRooms
 
   for (let i = 0; i < possibleRoomsObject.length; i++)
     possibleRooms = [...possibleRooms, possibleRoomsObject[i].roomRef]
@@ -377,7 +380,7 @@ const getPossibleRoomsByLecturer = async (req, res, next) => {
 const getPossibleRoomsByGroup = async (req, res, next) => {
   let groupObject
   let possibleRooms = []
-  let possibleRoomsObject
+  let possibleRoomsObject = []
 
   const {
     group
@@ -392,7 +395,8 @@ const getPossibleRoomsByGroup = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
-  possibleRoomsObject = groupObject.possibleRooms
+  if (groupObject !== null)
+    possibleRoomsObject = groupObject.possibleRooms
 
   for (let i = 0; i < possibleRoomsObject.length; i++)
     possibleRooms = [...possibleRooms, possibleRoomsObject[i].roomRef]
@@ -406,7 +410,7 @@ const getPossibleRoomsByGroup = async (req, res, next) => {
 const getPossibleRoomsBySubGroup = async (req, res, next) => {
   let subGroupObject
   let possibleRooms = []
-  let possibleRoomsObject
+  let possibleRoomsObject = []
 
   const {
     subGroup
@@ -421,7 +425,8 @@ const getPossibleRoomsBySubGroup = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
-  possibleRoomsObject = subGroupObject.possibleRooms
+  if (subGroupObject !== null)
+    possibleRoomsObject = subGroupObject.possibleRooms
 
   for (let i = 0; i < possibleRoomsObject.length; i++)
     possibleRooms = [...possibleRooms, possibleRoomsObject[i].roomRef]
