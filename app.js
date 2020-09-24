@@ -22,6 +22,7 @@ const StudentsStatisticsRoutes = require('./routes/students-statistics.routes')
 const SubjectsStatisticsRoutes = require('./routes/subjects-statistics.routes')
 const LecturersStatisticsRoutes = require('./routes/lecturers-statistics.routes')
 const AddRoomsRoutes = require('./routes/add-rooms.routes')
+const SessionRoutes = require('./routes/session.routes')
 const RoomsForSessionsRoutes = require('./routes/rooms-for-sessions.routes')
 
 require('dotenv').config()
@@ -55,6 +56,7 @@ app.use('/studentsStatistics', StudentsStatisticsRoutes)
 app.use('/subjectsStatistics', SubjectsStatisticsRoutes)
 app.use('/lecturersStatistics', LecturersStatisticsRoutes)
 app.use('/addRooms', AddRoomsRoutes)
+app.use('/sessions', SessionRoutes)
 app.use('/roomsForSessions', RoomsForSessionsRoutes)
 
 app.use(() => {
