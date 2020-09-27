@@ -1,6 +1,11 @@
 const HttpErrorsModel = require('../models/http-errors')
 const SessionModel = require('../models/sessions.model')
 const RoomModel = require('../models/rooms.model')
+const TagModel = require('../models/tags.model')
+const LecturerModel = require('../models/lecturers.model')
+const GroupModel = require('../models/groups.model')
+const SubGroupModel = require('../models/sub-groups.model')
+const SubjectTagModel = require('../models/subject-tag.model')
 
 const addSession = async (req, res, next) => {
   const {
@@ -183,6 +188,11 @@ const setPossibleRoomsForSession = async (req, res, next) => {
 const setPossibleRoomsForSessions = async (req, res, next) => {
   let sessionList
   let roomList
+  let tagList
+  let subjectTagList
+  let lecturerList
+  let groupList
+  let subGroupList
   let possibleRooms
 
   try {
@@ -199,18 +209,55 @@ const setPossibleRoomsForSessions = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
+  try {
+    tagList = await TagModel.find()
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  try {
+    subjectTagList = await SubjectTagModel.find()
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  try {
+    lecturerList = await LecturerModel.find()
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  try {
+    groupList = await GroupModel.find()
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  try {
+    subGroupList = await SubGroupModel.find()
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
   for (let i = 0; i < sessionList.length; i++) {
+    let session = sessionList[i]
     possibleRooms = []
     for (let j = 0; j < roomList.length; j++) {
-      if (sessionList[i].studentCount <= roomList[j].roomCapacity) {
+      let room = roomList[j]
+      if (session.studentCount <= room.roomCapacity) {
         possibleRooms = [...possibleRooms, {
-          roomName: roomList[j].roomName
+          roomName: room.roomName
         }]
       }
     }
-    sessionList[i].possibleRooms = possibleRooms
+    session.possibleRooms = possibleRooms
     try {
-      await sessionList[i].save()
+      await session.save()
     } catch (error) {
       console.log(error)
       return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
