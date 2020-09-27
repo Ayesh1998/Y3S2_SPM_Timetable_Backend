@@ -135,7 +135,7 @@ const SessionsSchema = new Schema({
     trim: true
   },
   possibleRooms: [{
-    roomRef: {
+    roomName: {
       type: String,
       required: false,
       unique: false,
