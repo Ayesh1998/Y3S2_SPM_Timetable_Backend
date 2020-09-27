@@ -3,6 +3,16 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 const Schema = mongoose.Schema
 
+const days = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday'
+]
+
 const GroupsSchema = new Schema({
   academicYear: {
     type: Number,
@@ -60,6 +70,27 @@ const GroupsSchema = new Schema({
     unique: false,
     trim: true
   },
+  unavailability: [{
+    day: {
+      type: String,
+      enum: days,
+      required: false,
+      unique: false,
+      trim: true
+    },
+    startTime: {
+      type: String,
+      required: false,
+      unique: false,
+      trim: true
+    },
+    endTime: {
+      type: String,
+      required: false,
+      unique: false,
+      trim: true
+    }
+  }],
   possibleRooms: [{
     roomRef: {
       type: String,
