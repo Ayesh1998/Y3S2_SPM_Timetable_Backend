@@ -10,7 +10,8 @@ const addSessions = async (req, res, next) => {
     groupRef,
     subGroupRef,
     studentCount,
-    duration
+    duration,
+    label
   } = req.body
 
   const newSession = new SessionModel({
@@ -21,7 +22,8 @@ const addSessions = async (req, res, next) => {
     groupRef,
     subGroupRef,
     studentCount,
-    duration
+    duration,
+    label
   })
 
   try {
