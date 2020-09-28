@@ -62,6 +62,27 @@ const LecturersSchema = new Schema({
     unique: true,
     trim: true
   },
+  notAvailable: [{
+    day: {
+      type: String,
+      enum: days,
+      required: false,
+      unique: false,
+      trim: true
+    },
+    startTime: {
+      type: String,
+      required: false,
+      unique: false,
+      trim: true
+    },
+    endTime: {
+      type: String,
+      required: false,
+      unique: false,
+      trim: true
+    }
+  }],
   unavailability: [{
     day: {
       type: String,
