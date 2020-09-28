@@ -51,7 +51,26 @@ const SubjectsSchema = new Schema({
     required: true,
     unique: false,
     trim: true
+  },
+  label: {
+    type: String,
+    required: false,
+    unique: false,
+    trim: true
+  }, 
+  category: {
+    type: String,
+    required: false,
+    unique: false,
+    trim: true
+  },
+  categoryCount: {
+    type: Number,
+    required: false,
+    unique: false,
+    trim: true
   }
+
 }, {
   timestamps: true,
   collection: 'Subjects'
