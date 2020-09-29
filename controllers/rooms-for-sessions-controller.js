@@ -104,11 +104,53 @@ const addRoomForSession = async (req, res, next) => {
   else
     session.roomRef = room
 
+  if (session.roomRef !== null && session.isParallel) {
+    try {
+      let parallelSession = await SessionModel.findOne({
+        parallelId: session.parallelId,
+        sessionId: {
+          '$ne': session.sessionId
+        }
+      })
+      if (parallelSession.roomRef === session.roomRef) {
+        res.json({
+          exists: true,
+          message: 'A parallel session with the same room already exists.'
+        })
+        return next(new HttpErrorsModel('A parallel session with the same room already exists.', 409))
+      }
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+  }
+
   try {
     await session.save()
   } catch (error) {
     console.log(error)
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  if (session.isConsecutive && session.isSameRoom) {
+    try {
+      let consecutiveSession = await SessionModel.findOne({
+        consecutiveId: session.consecutiveId,
+        sessionId: {
+          '$ne': session.sessionId
+        }
+      })
+      consecutiveSession.roomRef = session.roomRef
+      try {
+        await consecutiveSession.save()
+      } catch (error) {
+        console.log(error)
+        return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+      }
+    } catch (error) {
+      console.log(error)
+      return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
   }
 
   res.status(200).send({
@@ -193,7 +235,6 @@ const setPossibleRoomsForSessions = async (req, res, next) => {
   let lecturerList
   let groupList
   let subGroupList
-  let possibleRooms
 
   try {
     sessionList = await SessionModel.find()
@@ -244,16 +285,80 @@ const setPossibleRoomsForSessions = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
+  let roomArray = []
+
+  for (let i = 0; i < roomList.length; i++)
+    roomArray = [...roomArray, roomList[i].roomName]
+
   for (let i = 0; i < sessionList.length; i++) {
     let session = sessionList[i]
-    possibleRooms = []
-    for (let j = 0; j < roomList.length; j++) {
-      let room = roomList[j]
-      if (session.studentCount <= room.roomCapacity) {
-        possibleRooms = [...possibleRooms, {
-          roomName: room.roomName
+    let tag = tagList.filter(tagObj => tagObj.name === session.tagRef)
+    let tagPossibleRoomsArray = []
+    if (tag.length > 0) {
+      let tagPossibleRooms = tag[0].possibleRooms
+      for (let count = 0; count < tagPossibleRooms.length; count++)
+        tagPossibleRoomsArray = [...tagPossibleRoomsArray, tagPossibleRooms[count].roomRef]
+    }
+    if (tagPossibleRoomsArray.length === 0)
+      tagPossibleRoomsArray = roomArray
+    let subjectTag = subjectTagList.filter(subjectTagObj => subjectTagObj.tagRef === session.tagRef
+      && subjectTagObj.subjectRef === session.subjectCodeRef)
+    let subjectTagPossibleRoomsArray = []
+    if (subjectTag.length > 0) {
+      let subjectTagPossibleRooms = subjectTag[0].possibleRooms
+      for (let count = 0; count < subjectTagPossibleRooms.length; count++) {
+        subjectTagPossibleRoomsArray = [...subjectTagPossibleRoomsArray, {
+          roomName: subjectTagPossibleRooms[count].roomRef
         }]
       }
+    }
+    let lecturer = lecturerList.filter(lecturerObj => lecturerObj.lecturerName === session.lecturers[0].lecturerRef)
+    let lecturerPossibleRoomsArray = []
+    if (lecturer.length > 0) {
+      let lecturerPossibleRooms = lecturer[0].possibleRooms
+      for (let count = 0; count < lecturerPossibleRooms.length; count++)
+        lecturerPossibleRoomsArray = [...lecturerPossibleRoomsArray, lecturerPossibleRooms[count].roomRef]
+    }
+    if (lecturerPossibleRoomsArray.length === 0)
+      lecturerPossibleRoomsArray = roomArray
+    let group = groupList.filter(groupObj => groupObj.groupId === session.groupRef)
+    let groupPossibleRoomsArray = []
+    if (group.length > 0) {
+      let groupPossibleRooms = group[0].possibleRooms
+      for (let count = 0; count < groupPossibleRooms.length; count++)
+        groupPossibleRoomsArray = [...groupPossibleRoomsArray, groupPossibleRooms[count].roomRef]
+    }
+    if (groupPossibleRoomsArray.length === 0)
+      groupPossibleRoomsArray = roomArray
+    let subGroup = subGroupList.filter(subGroupObj => subGroupObj.subGroupId === session.subGroupRef)
+    let subGroupPossibleRoomsArray = []
+    if (subGroup.length > 0) {
+      let subGroupPossibleRooms = subGroup[0].possibleRooms
+      for (let count = 0; count < subGroupPossibleRooms.length; count++)
+        subGroupPossibleRoomsArray = [...subGroupPossibleRoomsArray, subGroupPossibleRooms[count].roomRef]
+    }
+    if (subGroupPossibleRoomsArray.length === 0)
+      subGroupPossibleRoomsArray = roomArray
+    let possibleRooms = []
+    if (subjectTagPossibleRoomsArray.length === 0) {
+      for (let j = 0; j < roomList.length; j++) {
+        let room = roomList[j]
+        if (session.studentCount <= room.roomCapacity) {
+          if (tagPossibleRoomsArray.includes(room.roomName)) {
+            if (lecturerPossibleRoomsArray.includes(room.roomName)) {
+              if (groupPossibleRoomsArray.includes(room.roomName)) {
+                if (subGroupPossibleRoomsArray.includes(room.roomName)) {
+                  possibleRooms = [...possibleRooms, {
+                    roomName: room.roomName
+                  }]
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      possibleRooms = subjectTagPossibleRoomsArray
     }
     session.possibleRooms = possibleRooms
     try {
@@ -261,6 +366,28 @@ const setPossibleRoomsForSessions = async (req, res, next) => {
     } catch (error) {
       console.log(error)
       return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+    }
+    if (session.roomRef !== null && session.isConsecutive && session.isSameRoom) {
+      try {
+        let consecutiveSession = await SessionModel.findOne({
+          consecutiveId: session.consecutiveId,
+          sessionId: {
+            '$ne': session.sessionId
+          }
+        })
+        if (consecutiveSession.roomRef === null) {
+          consecutiveSession.roomRef = session.roomRef
+          try {
+            await consecutiveSession.save()
+          } catch (error) {
+            console.log(error)
+            return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+          }
+        }
+      } catch (error) {
+        console.log(error)
+        return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+      }
     }
   }
 

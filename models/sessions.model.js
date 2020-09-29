@@ -72,7 +72,7 @@ const SessionsSchema = new Schema({
     required: true,
     unique: false,
     trim: true
-  }, 
+  },
   label: {
     type: String,
     required: false,
@@ -133,7 +133,6 @@ const SessionsSchema = new Schema({
     unique: false,
     trim: true
   },
- 
   roomRef: {
     type: String,
     required: false,

@@ -62,7 +62,6 @@ const LecturersSchema = new Schema({
     unique: true,
     trim: true
   },
- 
   unavailability: [{
     day: {
       type: String,

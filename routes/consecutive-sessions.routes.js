@@ -5,6 +5,4 @@ const ConsecutiveSessionController = require('../controllers/consecutive-session
 
 router.post('/addConsecutiveSession/:id', ConsecutiveSessionController.addConsecutiveSession)
 
-
 module.exports = router
- 

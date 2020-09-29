@@ -57,7 +57,7 @@ const SubjectsSchema = new Schema({
     required: false,
     unique: false,
     trim: true
-  }, 
+  },
   category: {
     type: String,
     required: false,
@@ -70,7 +70,6 @@ const SubjectsSchema = new Schema({
     unique: false,
     trim: true
   }
-
 }, {
   timestamps: true,
   collection: 'Subjects'

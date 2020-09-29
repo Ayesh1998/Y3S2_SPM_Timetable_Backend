@@ -62,7 +62,6 @@ const SubGroupsSchema = new Schema({
     unique: true,
     trim: true
   },
- 
   unavailability: [{
     day: {
       type: String,
