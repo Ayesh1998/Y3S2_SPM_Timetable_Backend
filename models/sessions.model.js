@@ -133,27 +133,7 @@ const SessionsSchema = new Schema({
     unique: false,
     trim: true
   },
-  notAvailable: [{
-    day: {
-      type: String,
-      enum: days,
-      required: false,
-      unique: false,
-      trim: true
-    },
-    startTime: {
-      type: String,
-      required: false,
-      unique: false,
-      trim: true
-    },
-    endTime: {
-      type: String,
-      required: false,
-      unique: false,
-      trim: true
-    }
-  }],
+ 
   roomRef: {
     type: String,
     required: false,
