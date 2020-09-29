@@ -73,6 +73,12 @@ const SessionsSchema = new Schema({
     unique: false,
     trim: true
   },
+  label: {
+    type: String,
+    required: false,
+    unique: false,
+    trim: true
+  },
   day: {
     type: String,
     enum: days,
