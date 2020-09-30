@@ -68,6 +68,42 @@ const getSessionLists = async (req, res, next) => {
   res.status(200).send(sessionList)
 }
 
+
+
+const addNotAvailable = async (req, res, next) => {
+  let session
+
+  const {
+    id
+  } = req.params
+
+  const {
+    unavailability
+  } = req.body
+
+  try {
+    session = await SessionModel.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  session.unavailability =  unavailability
+
+
+  try {
+    await session.save()
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send({
+    message: 'session not available added successfully!'
+  })
+}
+
 exports.addSessions = addSessions
 exports.getSession = getSession
 exports.getSessionLists = getSessionLists
+exports.addNotAvailable = addNotAvailable
