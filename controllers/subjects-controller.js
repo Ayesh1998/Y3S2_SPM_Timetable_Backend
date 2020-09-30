@@ -12,7 +12,8 @@ const addSubjects = async (req, res, next) => {
     numberOfLectureHours,
     numberOfTutorialHours,
     numberOfLabHours,
-    numberOfEvaluationHours
+    numberOfEvaluationHours,
+    label
   } = req.body
 
   try {
@@ -40,7 +41,8 @@ const addSubjects = async (req, res, next) => {
     numberOfLectureHours,
     numberOfTutorialHours,
     numberOfLabHours,
-    numberOfEvaluationHours
+    numberOfEvaluationHours,
+    label
   })
 
   try {

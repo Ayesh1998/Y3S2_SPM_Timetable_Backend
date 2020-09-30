@@ -154,9 +154,8 @@ const getRoomList = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
-  for (let i = 0; i < roomList.length; i++) {
+  for (let i = 0; i < roomList.length; i++)
     roomList[i].roomCapacity = roomList[i].roomCapacity.toString()
-  }
 
   res.status(200).send(roomList)
 }
@@ -177,9 +176,8 @@ const getRoomListByBuilding = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
-  for (let i = 0; i < roomList.length; i++) {
+  for (let i = 0; i < roomList.length; i++)
     roomList[i].roomCapacity = roomList[i].roomCapacity.toString()
-  }
 
   res.status(200).send(roomList)
 }
@@ -222,9 +220,8 @@ const getRoomListByRoomName = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
-  for (let i = 0; i < roomList.length; i++) {
+  for (let i = 0; i < roomList.length; i++)
     roomList[i].roomCapacity = roomList[i].roomCapacity.toString()
-  }
 
   res.status(200).send(roomList)
 }
@@ -245,9 +242,8 @@ const getRoomListByRoomType = async (req, res, next) => {
     return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
   }
 
-  for (let i = 0; i < roomList.length; i++) {
+  for (let i = 0; i < roomList.length; i++)
     roomList[i].roomCapacity = roomList[i].roomCapacity.toString()
-  }
 
   res.status(200).send(roomList)
 }
@@ -350,9 +346,8 @@ const searchRooms = async (req, res, next) => {
     }
   }
 
-  for (let i = 0; i < roomList.length; i++) {
+  for (let i = 0; i < roomList.length; i++)
     roomList[i].roomCapacity = roomList[i].roomCapacity.toString()
-  }
 
   res.status(200).send(roomList)
 }

@@ -112,6 +112,41 @@ const getSubGroup = async (req, res, next) => {
   res.status(200).send(subGroup)
 }
 
+
+const addNotAvailable = async (req, res, next) => {
+  let subgroup
+
+  const {
+    id
+  } = req.params
+
+  const {
+    unavailability
+  } = req.body
+
+  try {
+    subgroup = await SubGroups.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  subgroup.unavailability =  unavailability
+
+
+  try {
+    await subgroup.save()
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send({
+    message: 'subgroup not available added successfully!'
+  })
+}
+
+
 exports.createSubGroups = createSubGroups
 exports.editSubGroups = editSubGroups
 exports.getSubGroups = getSubGroups
@@ -119,3 +154,4 @@ exports.getSubGroup = getSubGroup
 exports.deleteSubGroups = deleteSubGroups
 exports.deleteAllSubGroupsWithGroId = deleteAllSubGroupsWithGroId
 exports.deleteSubGroupsWithSubId = deleteSubGroupsWithSubId
+exports.addNotAvailable = addNotAvailable

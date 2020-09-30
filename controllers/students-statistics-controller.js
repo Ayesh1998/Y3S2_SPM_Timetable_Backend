@@ -219,9 +219,8 @@ const getGroupsCountByAcademicYear = async (req, res, next) => {
     let subGroupsCount = 0
     for (let j = 0; j < subGroupsCountByAcademicYear.length; j++) {
       const academicYearSubGroup = subGroupsCountByAcademicYear[j]._id.academicYear
-      if (academicYearGroup === academicYearSubGroup) {
+      if (academicYearGroup === academicYearSubGroup)
         subGroupsCount = subGroupsCountByAcademicYear[j].subGroupsCount
-      }
     }
     groupsCountByAcademicYear[i] = {
       ...groupsCountByAcademicYear[i],
@@ -287,9 +286,8 @@ const getGroupsCountByAcademicYearAndSemester = async (req, res, next) => {
     for (let j = 0; j < subGroupsCountByAcademicYearAndSemester.length; j++) {
       const academicYearSubGroup = subGroupsCountByAcademicYearAndSemester[j]._id.academicYear
       const academicSemesterSubGroup = subGroupsCountByAcademicYearAndSemester[j]._id.academicSemester
-      if (academicYearGroup === academicYearSubGroup && academicSemesterGroup === academicSemesterSubGroup) {
+      if (academicYearGroup === academicYearSubGroup && academicSemesterGroup === academicSemesterSubGroup)
         subGroupsCount = subGroupsCountByAcademicYearAndSemester[j].subGroupsCount
-      }
     }
     academicYearAndSemester = `Y${academicYearGroup}.S${academicSemesterGroup}`
     groupsCountByAcademicYearAndSemester[i] = {
@@ -361,9 +359,9 @@ const getGroupsCountByAcademicYearSemesterAndProgramme = async (req, res, next) 
       const academicYearSubGroup = subGroupsCountByAcademicYearSemesterAndProgramme[j]._id.academicYear
       const academicSemesterSubGroup = subGroupsCountByAcademicYearSemesterAndProgramme[j]._id.academicSemester
       const programmeSubGroup = subGroupsCountByAcademicYearSemesterAndProgramme[j]._id.programme
-      if (academicYearGroup === academicYearSubGroup && academicSemesterGroup === academicSemesterSubGroup && programmeGroup === programmeSubGroup) {
+      if (academicYearGroup === academicYearSubGroup && academicSemesterGroup === academicSemesterSubGroup
+        && programmeGroup === programmeSubGroup)
         subGroupsCount = subGroupsCountByAcademicYearSemesterAndProgramme[j].subGroupsCount
-      }
     }
     academicYearSemesterAndProgramme = `Y${academicYearGroup}.S${academicSemesterGroup}.${programmeGroup}`
     groupsCountByAcademicYearSemesterAndProgramme[i] = {
