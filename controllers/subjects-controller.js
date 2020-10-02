@@ -167,6 +167,23 @@ const getSubject = async (req, res, next) => {
   res.status(200).send(subject)
 }
 
+const getSubject1 = async (req, res, next) => {
+  let subject
+
+  const {
+    id
+  } = req.params
+
+  try {
+    subject = await SubjectModel.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send(subject)
+}
+
 const getSubjectsList = async (req, res, next) => {
   let subjectsList
 
@@ -180,8 +197,47 @@ const getSubjectsList = async (req, res, next) => {
   res.status(200).send(subjectsList)
 }
 
+
+const addCategory = async (req, res, next) => {
+  let subject
+
+  const {
+    id
+  } = req.params
+
+  const {
+    category,
+    categoryCount
+  } = req.body
+
+  try {
+    subject = await SubjectModel.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  subject.category = category
+  subject.categoryCount = categoryCount
+
+
+  try {
+    await subject.save()
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send({
+    message: 'category added successfully!'
+  })
+}
+
+
 exports.addSubjects = addSubjects
 exports.updateSubject = updateSubject
 exports.deleteSubjects = deleteSubjects
 exports.getSubject = getSubject
+exports.getSubject1 = getSubject1
 exports.getSubjectsList = getSubjectsList
+exports.addCategory = addCategory
