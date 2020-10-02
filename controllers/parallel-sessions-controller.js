@@ -88,6 +88,36 @@ const getCategoryCount = async (req,res,next) => {
     
 }
 
+
+
+const getSubjectCat = async (req,res,next) => {
+
+ 
+  let catList;
+  
+
+  const {
+    category
+  } = req.body
+
+  try {
+    catList = await SubjectModel.find({
+      category: category
+    })
+   
+    console.log(catList)
+   
+    
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+  res.status(200).send(catList);
+   
+    
+}
+
 exports.addParallelSession = addParallelSession
 exports.getCategories = getCategories
 exports.getCategoryCount = getCategoryCount
+exports.getSubjectCat = getSubjectCat
