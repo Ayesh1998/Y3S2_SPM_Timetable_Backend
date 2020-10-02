@@ -1,6 +1,5 @@
 const HttpErrorsModel = require('../models/http-errors')
 const SessionModel = require('../models/sessions.model')
-const WorkingDaysAndHours = require('../models/woking-days-hours-model')
 
 const addSessions = async (req, res, next) => {
   const {
@@ -15,56 +14,12 @@ const addSessions = async (req, res, next) => {
     label
   } = req.body
 
-  const getNoOfWorkingTime = (startTime, endTime) => {
-    var startTime = startTime;
-    var endTime = endTime;
-
-    var todayDate = moment(new Date()).format('MM-DD-YYYY');
-
-    var startDate = new Date(`${todayDate} ${startTime}`);
-    var endDate = new Date(`${todayDate} ${endTime}`);
-    var timeDiff = Math.abs(startDate.getTime() - endDate.getTime());
-
-    var hh = Math.floor(timeDiff / 1000 / 60 / 60);
-    hh = ('0' + hh).slice(-2);
-
-    timeDiff -= hh * 1000 * 60 * 60;
-    var mm = Math.floor(timeDiff / 1000 / 60);
-    mm = ('0' + mm).slice(-2);
-
-    timeDiff -= mm * 1000 * 60;
-    var ss = Math.floor(timeDiff / 1000);
-    ss = ('0' + ss).slice(-2);
-
-    return ({ hours: hh, minutes: mm });
-  };
-
-  const generateNoOfTimeSlots = (timeSlotTime, startTime, endTime) => {
-    const time = getNoOfWorkingTime(startTime, endTime);
-    const tempHoursInMinutes = time.hours * 60;
-    const slots = (parseInt(tempHoursInMinutes) + parseInt(time.minutes)) / timeSlotTime;
-    return slots;
-  };
-
-  function randomInteger(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  let randomDayNo = randomInteger(0,4);
-  let randomHourNo = randomInteger(0,8);
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-  const hourss = ['08:30', '09:30', '10:30', '11:30', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30'];
-
-
   const newSession = new SessionModel({
     lecturers,
     subjectRef,
     subjectCodeRef,
     tagRef,
     groupRef,
-    day:days[randomDayNo],
-    startTime: hourss[randomHourNo],
-    endTime: hourss[(randomHourNo + 2)],
     subGroupRef,
     studentCount,
     duration,
@@ -148,7 +103,131 @@ const addNotAvailable = async (req, res, next) => {
   })
 }
 
+
+
+const  getSessionsCode = async (req,res,next) => {
+
+ 
+  let sessionList;
+  
+
+  const {
+     subjectCodeRef
+  } = req.body
+
+  try {
+    sessionList = await SessionModel.find({
+      subjectCodeRef:subjectCodeRef
+    })
+   
+    console.log(sessionList)
+   
+    
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+  res.status(200).send(sessionList);
+   
+    
+}
+
+
+const  getSessionsLec = async (req,res,next) => {
+
+ 
+  let sessionList;
+  
+
+  const {
+     tagRef
+  } = req.body
+
+  try {
+    sessionList = await SessionModel.find({
+      tagRef:tagRef
+    })
+   
+    console.log(sessionList)
+   
+    
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+  res.status(200).send(sessionList);
+   
+    
+}
+
+
+
+const  getSessionsTut = async (req,res,next) => {
+
+ 
+  let sessionList;
+  
+
+  const {
+     tagRef,
+     subjectCodeRef,
+     groupRef
+  } = req.body
+
+  try {
+    sessionList = await SessionModel.find({
+      tagRef:tagRef,
+      subjectCodeRef:subjectCodeRef,
+      groupRef:groupRef
+    })
+   
+    console.log(sessionList)
+   
+    
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+  res.status(200).send(sessionList);
+   
+    
+}
+
+
+
+const  getSessionsTuto = async (req,res,next) => {
+
+ 
+  let sessionList;
+  
+
+  const {
+     tagRef
+  } = req.body
+
+  try {
+    sessionList = await SessionModel.find({
+      tagRef:tagRef,
+     
+    })
+   
+    console.log(sessionList)
+   
+    
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+  res.status(200).send(sessionList);
+   
+    
+}
 exports.addSessions = addSessions
 exports.getSession = getSession
 exports.getSessionLists = getSessionLists
 exports.addNotAvailable = addNotAvailable
+exports.getSessionsCode = getSessionsCode
+exports.getSessionsLec = getSessionsLec
+exports.getSessionsTut = getSessionsTut
+exports.getSessionsTuto = getSessionsTuto
+
