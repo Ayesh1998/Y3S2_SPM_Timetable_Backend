@@ -179,8 +179,44 @@ const getLecturersList = async (req, res, next) => {
   res.status(200).send(lecturersList)
 }
 
+const addNotAvailable = async (req, res, next) => {
+  let lecturer
+
+  const {
+    id
+  } = req.params
+
+  const {
+    unavailability
+  } = req.body
+
+  try {
+    lecturer = await LecturerModel.findById(id)
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  lecturer.unavailability =  unavailability
+
+
+  try {
+    await lecturer.save()
+  } catch (error) {
+    console.log(error)
+    return next(new HttpErrorsModel('Unexpected internal server error occurred, please try again later.', 500))
+  }
+
+  res.status(200).send({
+    message: 'lecturer not available added successfully!'
+  })
+}
+
+
+
 exports.addLecturers = addLecturers
 exports.updateLecturer = updateLecturer
 exports.deleteLecturer = deleteLecturer
 exports.getLecturer = getLecturer
 exports.getLecturersList = getLecturersList
+exports.addNotAvailable = addNotAvailable

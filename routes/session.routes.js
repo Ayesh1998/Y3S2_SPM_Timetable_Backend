@@ -6,5 +6,6 @@ const sessionsController = require('../controllers/sessions-controller')
 router.post('/addSessions', sessionsController.addSessions)
 router.get('/getSessions/:id', sessionsController.getSession)
 router.get('/getSessionList', sessionsController.getSessionLists)
+router.post('/addNotAvailable/:id',sessionsController.addNotAvailable)
 
 module.exports = router
